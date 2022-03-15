@@ -188,7 +188,7 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                     </Link>
                 </LinkWrapper>
                 <Cart onClick={onCartClick}>
-                    <CartText>VAURUKORG</CartText>
+                    <CartText>VARUKORG</CartText>
                     <CartAmount>{cartCount()}</CartAmount>
                 </Cart>
             </TopHeader>

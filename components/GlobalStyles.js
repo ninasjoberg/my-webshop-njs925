@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
 		font-family: helvetica;
 		text-align: center;
 		line-height: 1.5;
-		background-color: #eed2c4;
+		/* background-color: #eed2c4; */
 		body {
 			margin: 0px;
 		}
@@ -26,19 +26,19 @@ const GlobalStyle = createGlobalStyle`
 		}
 		h2 {
 			margin: 12px auto;
-			font-size: 16px;
+			font-size: 20px;
 			font-weight: 100;
 			letter-spacing: 2px;
 		}
 		h3 {
-			margin: 16px auto;
+			margin: 16px auto 8px;
 			font-weight: 100;
 			letter-spacing: 2px;
 			text-transform: uppercase;
 		}
 		p {
 			margin: 0;
-			color: #51616a;
+			color: #000;
 		}
 		ul, li, a {
 			text-decoration: none;

@@ -13,23 +13,26 @@ const TopHeader = styled.div`
     top: 0;
     background-color: #3c3c3c;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    @media (max-width: 700px) {
+        padding: 6px;
+    }
 `
 
 const LinkWrapper = styled.div`
     display: flex;
-    justify-content: space-between;
     flex-flow: wrap;
-    padding: 10px;
 `
 
 const Wrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    padding: 20px 50px;
-    background-color: #3c3c3c;
-    margin-top: 40px;
+    margin-top: 65px;
+    justify-content: center;
     @media (max-width: 700px) {
         padding: 12px;
+        max-width: 100%fit-content;
     }
 `
 
@@ -39,71 +42,68 @@ const Cart = styled.button`
     background-color: #3c3c3c;
     border: none;
     cursor: pointer;
+    @media (max-width: 700px) {
+        padding-right: 3px;
+    }
 `
 
 const CartText = styled.p`
     font-weight: 100;
-    color: #f5eee8;
+    color: #fff;
     font-size: 16px;
+    letter-spacing: 2px;
     margin-left: 4px;
     &:hover {
         color: #eed2c4;
     }
     @media (max-width: 700px) {
-        font-size: 14px;
+        font-size: 12px;
     }
 `
 
 const CartAmount = styled.p`
-    color: #06d0b2;
+    color: #4da7bc;
     font-size: 16px;
     font-weight: 100;
     margin-left: 4px;
     @media (max-width: 700px) {
-        font-size: 14px;
+        font-size: 12px;
     }
 `
 
 const LinkStyle = styled.a`
-    color: #f5eee8;
     margin: 6px;
     font-weight: 100;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 2px;
     &:hover {
         color: #eed2c4;
     }
     ${({ active }) =>
         active &&
         `
-		color: #06d0b2;
+		color: #4da7bc;
 	`}
     @media (max-width: 700px) {
-        font-size: 14px;
+        font-size: 12px;
+        margin: 4px 3px;
     }
 `
 
-const TitleWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
-
-const Title = styled.h1`
-    color: #06d0b2;
-    cursor: pointer;
-    &:hover {
-        color: #eed2c4;
-    }
-    @media (max-width: 700px) {
-        margin: 6px;
-    }
+const Logo = styled.img`
+    width: 350px;
 `
 
 const SubTitle = styled.h2`
-    color: #f5eee8;
     letter-spacing: 2px;
     font-weight: 100;
+    font-size: 16px;
+    padding-bottom: 12px;
     @media (max-width: 700px) {
-        font-size: 12px;
+        font-size: 14px;
+        margin: 0 auto;
+        padding: 0px 12px 12px 12px;
     }
 `
 
@@ -157,52 +157,45 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
         <>
             <TopHeader>
                 <LinkWrapper>
-                    <div>
-                        <Link href="/" passHref>
-                            <LinkStyle
-                                active={
-                                    pathname === '/' ||
-                                    pathname === '/product' ||
-                                    pathname.includes('product')
-                                }
-                            >
-                                Produkter
-                            </LinkStyle>
-                        </Link>
-                        <Link href="/info" passHref>
-                            <LinkStyle active={asPath === '/info'}>
-                                Info
-                            </LinkStyle>
-                        </Link>
-                        <Link href="/about" passHref>
-                            <LinkStyle active={asPath === '/about'}>
-                                Om
-                            </LinkStyle>
-                        </Link>
-                        <Link href="/conditions" passHref>
-                            <LinkStyle active={asPath === '/conditions'}>
-                                Köpvillkor
-                            </LinkStyle>
-                        </Link>
-                    </div>
-                    <Cart onClick={onCartClick}>
-                        <CartText>Varukorg</CartText>
-                        <CartAmount>{cartCount()}</CartAmount>
-                    </Cart>
+                    <Link href="/" passHref>
+                        <LinkStyle
+                            active={
+                                pathname === '/' ||
+                                pathname === '/produkt' ||
+                                pathname.includes('produkt')
+                            }
+                        >
+                            PRODUKTER
+                        </LinkStyle>
+                    </Link>
+                    <Link href="/info" passHref>
+                        <LinkStyle active={asPath === '/info'}>INFO</LinkStyle>
+                    </Link>
+                    <Link href="/om" passHref>
+                        <LinkStyle active={asPath === '/om'}>OM</LinkStyle>
+                    </Link>
+                    <Link href="/villkor" passHref>
+                        <LinkStyle active={asPath === '/villkor'}>
+                            VILLKOR
+                        </LinkStyle>
+                    </Link>
                 </LinkWrapper>
+                <Cart onClick={onCartClick}>
+                    <CartText>VAURUKORG</CartText>
+                    <CartAmount>{cartCount()}</CartAmount>
+                </Cart>
             </TopHeader>
             <Wrapper>
-                <TitleWrapper>
-                    <Link href="/" passHref>
-                        <Title>NJS 925</Title>
-                    </Link>
-                    <SubTitle>
-                        Handgjorda smycken i 925 sterling silver. Tillverkade i
-                        liten skala, av mig Nina Johanna Sjöberg.
-                    </SubTitle>
-                </TitleWrapper>
+                <Link href="/" passHref>
+                    <Logo src="/logga.jpg" />
+                </Link>
+
                 {showCart && <CartModal onCartClose={onCartClose} />}
             </Wrapper>
+            <SubTitle>
+                Handgjorda smycken i 925 sterling silver. Tillverkade i liten
+                skala, av mig Nina Johanna Sjöberg.
+            </SubTitle>
             {/* <AwayMessage>
                 <h4>Semester tom 12 augusti!</h4>
                 <p>Ordrar som läggs innan dess kommer att skickas i turordning efter 12:e aug.</p>

@@ -11,7 +11,7 @@ const CartWrapper = styled.div`
     background-color: #fff;
     position: fixed;
     right: 40px;
-    top: 40px;
+    top: 46px;
     width: 500px;
     max-height: 80vh;
     overflow-x: scroll;
@@ -38,6 +38,8 @@ const CartWrapper = styled.div`
         max-height: none;
         height: 100%;
         padding: 20px;
+        top: 38px;
+        padding-bottom: 50px;
     }
 `
 

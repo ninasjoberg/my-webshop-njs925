@@ -8,11 +8,10 @@ const Wrapper = styled.ul`
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 0px;
+    background-color: #fff;
 `
 
 const ProductWrapper = styled.li`
-    background-color: #f5eee8;
-    padding: 12px;
     margin: 12px;
     ${({ hidden }) =>
         hidden &&
@@ -36,7 +35,6 @@ const DispalyProduct = styled.a`
     color: #51616a;
     letter-spacing: 0.6px;
     font-weight: 200;
-    max-width: 300px;
     @media (max-width: 700px) {
         h3 {
             font-size: 12px;
@@ -49,18 +47,26 @@ const DispalyProduct = styled.a`
     }
 `
 
-const ProductLink = ({ slug, img, alt, title, price, hidden }) => (
+const InfoWrapper = styled.div`
+    padding-bottom: 12px;
+    background-color: #f1f1f1;
+    width: 100%;
+`
+
+const ProductLink = ({ slug, img, alt, title, price, hidden, category }) => (
     <ProductWrapper hidden={hidden}>
-        <Link href={`/product/${slug}`} passHref>
+        <Link href={`/produkt/${slug}`} passHref>
             <DispalyProduct>
                 <Image
                     src={img}
                     alt={alt || 'produktbild silversmycke'}
-                    width={300}
-                    height={300}
+                    width={400}
+                    height={400}
                 />
-                <h3>{title}</h3>
-                <p>{price} SEK</p>
+                <InfoWrapper>
+                    <h3>{title}</h3>
+                    <p>{price} SEK</p>
+                </InfoWrapper>
             </DispalyProduct>
         </Link>
     </ProductWrapper>

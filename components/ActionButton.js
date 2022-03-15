@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styled from 'styled-components'
 
 const Button = styled.button`
@@ -11,19 +11,18 @@ const Button = styled.button`
     letter-spacing: 1px;
     margin-top: 12px;
     cursor: pointer;
-    background-color: black;
+    background-color: #4da7bc;
+    border: none;
     color: white;
     border-radius: 4px;
-    border: 1px solid rgb(203, 207, 209);
+    border: 1px solid #4d828e;
     :hover {
         border: 1px solid #3c3c3c;
     }
     :active {
         opacity: 0.4;
     }
-
-`;
-
+`
 
 const ActionButton = ({ buttonText, onClick }) => {
     return (

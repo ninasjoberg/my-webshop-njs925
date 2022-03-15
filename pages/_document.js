@@ -44,7 +44,7 @@ export default class MyDocument extends Document {
                     />
                     <meta
                         name="google-site-verification"
-                        content="P62ChL8wEUwp2QCClCPZzZ5Apk4xZm1sIfI9T-z0fsE"
+                        content="_sm2651Q-VHAqXezJEVpUIvDTDycuQtz5DW6aGEBTUg"
                     />
                     <link
                         rel="apple-touch-icon"

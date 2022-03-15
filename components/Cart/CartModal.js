@@ -80,6 +80,9 @@ const RemoveButton = styled.button`
     background-color: #f5eee8;
     color: #51616a;
     cursor: pointer;
+    span {
+        color: #000;
+    }
     :hover {
         opacity: 0.4;
     }

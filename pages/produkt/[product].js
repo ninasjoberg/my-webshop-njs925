@@ -53,6 +53,7 @@ const NotFoundLink = styled.p`
 const BigImageWrapper = styled.div`
     max-width: 600px;
     height: auto;
+    background-color: #f1f1f1;
 `
 
 const ImagesWrapper = styled.div`
@@ -67,6 +68,7 @@ const SmallImgWrapper = styled.div`
     cursor: pointer;
     width: 96px;
     height: auto;
+    background-color: #f1f1f1;
     &:last-child {
         margin-right: 0px;
     }

@@ -13,6 +13,7 @@ const Wrapper = styled.ul`
 
 const ProductWrapper = styled.li`
     margin: 12px;
+    background-color: #f1f1f1;
     ${({ hidden }) =>
         hidden &&
         `
@@ -49,7 +50,6 @@ const DispalyProduct = styled.a`
 
 const InfoWrapper = styled.div`
     padding-bottom: 12px;
-    background-color: #f1f1f1;
     width: 100%;
 `
 

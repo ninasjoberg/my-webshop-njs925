@@ -28,11 +28,12 @@ const LinkWrapper = styled.div`
 
 const Wrapper = styled.div`
     display: flex;
-    margin-top: 65px;
+    margin-top: 68px;
     justify-content: center;
     @media (max-width: 700px) {
         padding: 12px;
-        max-width: 100%fit-content;
+        max-width: 100%;
+        margin-top: 45px;
     }
 `
 
@@ -53,8 +54,11 @@ const CartText = styled.p`
     font-size: 16px;
     letter-spacing: 2px;
     margin-left: 4px;
-    &:hover {
-        color: #eed2c4;
+    @media (hover: hover) {
+        /* hack to not apply hover on mobile devices, because it does not work well with touchscreens */
+        &:hover {
+            color: #eed2c4;
+        }
     }
     @media (max-width: 700px) {
         font-size: 12px;
@@ -77,14 +81,17 @@ const LinkStyle = styled.a`
     color: #fff;
     font-size: 16px;
     letter-spacing: 2px;
-    &:hover {
-        color: #eed2c4;
-    }
     ${({ active }) =>
         active &&
         `
 		color: #4da7bc;
 	`}
+    @media (hover: hover) {
+        /* hack to not apply hover on mobile devices, because it does not work well with touchscreens */
+        &:hover {
+            color: #eed2c4;
+        }
+    }
     @media (max-width: 700px) {
         font-size: 12px;
         margin: 4px 3px;
@@ -189,7 +196,6 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                 <Link href="/" passHref>
                     <Logo src="/logga.jpg" />
                 </Link>
-
                 {showCart && <CartModal onCartClose={onCartClose} />}
             </Wrapper>
             <SubTitle>

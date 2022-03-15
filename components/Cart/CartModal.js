@@ -55,6 +55,7 @@ const CloseButton = styled.button`
         opacity: 0.4;
     }
     span {
+        color: #000;
         font-size: 24px;
     }
 `
@@ -78,7 +79,6 @@ const RemoveButton = styled.button`
     border: none;
     border-radius: 50%;
     background-color: #f5eee8;
-    color: #51616a;
     cursor: pointer;
     span {
         color: #000;

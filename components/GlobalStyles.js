@@ -45,6 +45,9 @@ const GlobalStyle = createGlobalStyle`
 			list-style-type: none;
 			padding: 0;
 		}
+		button {
+			font-family: helvetica;
+		}
 		button:focus {
 			outline: 0;
 			opacity: 1;

@@ -31,9 +31,5 @@ export const TextWrapper = styled.div`
     }
     p {
         margin-bottom: 12px;
-        margin-bottom: 12px;
-        letter-spacing: 2px;
-        font-weight: 100;
-        font-size: 16px;
     }
 `

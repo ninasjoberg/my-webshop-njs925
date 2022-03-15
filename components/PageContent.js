@@ -23,9 +23,6 @@ const ContentWrapper = styled.div`
         text-align: left;
         width: 100%;
         padding: 12px 12px;
-        letter-spacing: 2px;
-        font-weight: 100;
-        font-size: 16px;
     }
     @media (max-width: 700px) {
         padding: 16px 0 0;

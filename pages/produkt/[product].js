@@ -28,7 +28,6 @@ const WrapperContent = styled.div`
     margin: 32px 0;
     text-align: left;
     p {
-        font-weight: 200;
         margin-bottom: 10px;
     }
     @media (max-width: 700px) {
@@ -53,7 +52,7 @@ const NotFoundLink = styled.p`
 const BigImageWrapper = styled.div`
     max-width: 600px;
     height: auto;
-    background-color: #f1f1f1;
+    background-color: #cbcaca;
 `
 
 const ImagesWrapper = styled.div`
@@ -68,7 +67,7 @@ const SmallImgWrapper = styled.div`
     cursor: pointer;
     width: 96px;
     height: auto;
-    background-color: #f1f1f1;
+    background-color: #cbcaca;
     &:last-child {
         margin-right: 0px;
     }

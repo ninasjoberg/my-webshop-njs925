@@ -38,7 +38,13 @@ const GlobalStyle = createGlobalStyle`
 		}
 		p {
 			margin: 0;
-			color: #000;
+			color: #3c3c3c;
+    		font-size: 18px;
+			font-weight: 200;
+			font-family: helvetica;
+			@media (max-width: 700px) {
+				font-size: 16px;
+			}
 		}
 		ul, li, a {
 			text-decoration: none;

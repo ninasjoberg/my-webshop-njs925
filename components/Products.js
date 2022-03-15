@@ -19,8 +19,11 @@ const ProductWrapper = styled.li`
         `
 		display: none;
 	`}
-    :hover {
-        filter: brightness(120%);
+    @media (hover: hover) {
+        /* hack to not apply hover on mobile devices, because it does not work well with touchscreens */
+        &:hover {
+            filter: brightness(120%);
+        }
     }
     @media (max-width: 700px) {
         width: 45%;

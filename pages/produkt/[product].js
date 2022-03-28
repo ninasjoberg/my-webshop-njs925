@@ -51,7 +51,7 @@ const NotFoundLink = styled.p`
 
 const BigImageWrapper = styled.div`
     max-width: 600px;
-    height: auto;
+    height: 600px;
     background-color: #cbcaca;
 `
 
@@ -248,9 +248,8 @@ const Product = ({ product, categories, slug }) => {
                             <Image
                                 src={bigImage.src}
                                 alt={bigImage.alt}
-                                width="100%"
-                                height="100%"
-                                layout="responsive"
+                                width={600}
+                                height={600}
                             />
                         )}
                     </BigImageWrapper>
@@ -291,9 +290,6 @@ const Product = ({ product, categories, slug }) => {
 // It may be called again, on a serverless function, if the path has not been generated.
 export const getStaticPaths = async () => {
     const productsSlugsQuery = `*[_type == 'product' && defined(slug.current)][].slug.current`
-
-    console.log(productsSlugsQuery, 'productsSlugsQuery!!!!!!!!!!!!!')
-
     const slugs = await client.fetch(productsSlugsQuery)
 
     // Get the paths we want to pre-render based on products
@@ -329,10 +325,8 @@ export const getStaticProps = async ({ params }) => {
             "body": body.se[].children[],
         }`
 
-        console.log(params.product, 'params!!!!')
         const slug = params.product
 
-        console.log('slug', slug)
         const product = await client.fetch(productQuery, {
             slug,
         })

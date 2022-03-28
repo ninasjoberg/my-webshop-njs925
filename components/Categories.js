@@ -17,7 +17,7 @@ const Divider = styled.div`
     }
 `
 
-const CategoriesWrapper = styled.div`
+const Navigation = styled.nav`
     display: flex;
     padding: 20px 0px 10px 0px;
     margin: 0 auto;
@@ -64,7 +64,7 @@ const Categories = ({ categories, selectedCategory }) => {
     return (
         <Wrapper>
             <Divider />
-            <CategoriesWrapper>
+            <Navigation>
                 {categories.map((category) => {
                     const url =
                         category.title === 'Alla produkter'
@@ -82,7 +82,7 @@ const Categories = ({ categories, selectedCategory }) => {
                     )
                 })}
                 <Space />
-            </CategoriesWrapper>
+            </Navigation>
         </Wrapper>
     )
 }

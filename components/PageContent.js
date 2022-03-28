@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const PageWrapper = styled.div`
+const MainWrapper = styled.main`
     background-color: #f5eee8;
     width: 100%;
     min-height: 100vh;
@@ -48,7 +48,7 @@ const ContactLinks = styled.div`
 
 const PageContent = ({ imageArray, texArray }) => {
     return (
-        <PageWrapper>
+        <MainWrapper>
             <ContentWrapper>
                 {imageArray && imageArray}
                 {texArray}
@@ -75,7 +75,7 @@ const PageContent = ({ imageArray, texArray }) => {
                     </a>
                 </ContactLinks>
             </ContentWrapper>
-        </PageWrapper>
+        </MainWrapper>
     )
 }
 

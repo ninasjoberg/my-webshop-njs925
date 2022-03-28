@@ -43,7 +43,12 @@ const IndexPage = ({ products, categories }) => {
                 categories={categories}
                 selectedCategory={selectedCategory}
             />
-            <Products products={products} selectedCategory={selectedCategory} />
+            <main>
+                <Products
+                    products={products}
+                    selectedCategory={selectedCategory}
+                />
+            </main>
             <Footer />
         </Wrapper>
     )

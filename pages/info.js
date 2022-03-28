@@ -16,6 +16,13 @@ const Wrapper = styled.div`
     align-items: center;
 `
 
+const MainWrapper = styled.main`
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
 const Info = ({ pageInfo }) => {
     const sortedArray = pageInfo.sort((a, b) => {
         return a.order - b.order
@@ -86,7 +93,7 @@ const Info = ({ pageInfo }) => {
     })
 
     return (
-        <>
+        <Wrapper>
             <Head>
                 <title>NJS 925: silversmycken</title>
                 <meta
@@ -96,9 +103,9 @@ const Info = ({ pageInfo }) => {
                 <link rel="canonical" href="https://www.njs925.se/info" />
             </Head>
             <Header />
-            <Wrapper>{pageContent}</Wrapper>
+            <MainWrapper>{pageContent}</MainWrapper>
             <Footer />
-        </>
+        </Wrapper>
     )
 }
 

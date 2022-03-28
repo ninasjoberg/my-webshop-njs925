@@ -1,8 +1,16 @@
 import client from '../cmsApi'
 import Head from 'next/head'
+import styled from 'styled-components'
 import Header from '../components/Header'
 import PageContent from '../components/PageContent'
 import Footer from '../components/Footer'
+
+const Wrapper = styled.div`
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
 const productCare = ({ pageInfo }) => {
     const { body } = pageInfo[0]
@@ -12,7 +20,7 @@ const productCare = ({ pageInfo }) => {
     })
 
     return (
-        <>
+        <Wrapper>
             <Head>
                 <title>NJS 925: silversmycken</title>
                 <meta
@@ -24,7 +32,7 @@ const productCare = ({ pageInfo }) => {
             <Header />
             <PageContent texArray={texArray} />
             <Footer />
-        </>
+        </Wrapper>
     )
 }
 

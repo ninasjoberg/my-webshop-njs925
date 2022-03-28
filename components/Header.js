@@ -7,7 +7,11 @@ import { getItemListFromLocalStorage } from '../utils/localStorage'
 import { setCart } from '../redux/cartSlice'
 import CartModal from './Cart/CartModal'
 
-const TopHeader = styled.div`
+const HeaderWrapper = styled.header`
+    width: 100%;
+`
+
+const Navigation = styled.nav`
     position: fixed;
     z-index: 1;
     top: 0;
@@ -26,10 +30,11 @@ const LinkWrapper = styled.div`
     flex-flow: wrap;
 `
 
-const Wrapper = styled.div`
+const LogoWrapper = styled.div`
     display: flex;
     margin-top: 68px;
     justify-content: center;
+    cursor: pointer;
     @media (max-width: 700px) {
         padding: 12px;
         max-width: 100%;
@@ -102,7 +107,7 @@ const Logo = styled.img`
     width: 350px;
 `
 
-const SubTitle = styled.h2`
+const Title = styled.h1`
     letter-spacing: 2px;
     font-weight: 100;
     font-size: 16px;
@@ -161,8 +166,8 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
     }
 
     return (
-        <>
-            <TopHeader>
+        <HeaderWrapper>
+            <Navigation>
                 <LinkWrapper>
                     <Link href="/" passHref>
                         <LinkStyle
@@ -190,24 +195,27 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                 <Cart onClick={onCartClick}>
                     <CartText>VARUKORG</CartText>
                     <CartAmount>{cartCount()}</CartAmount>
+                    {showCart && <CartModal onCartClose={onCartClose} />}
                 </Cart>
-            </TopHeader>
-            <Wrapper>
-                <Link href="/" passHref>
-                    <Logo src="/logga.jpg" />
+            </Navigation>
+            <LogoWrapper>
+                <Link aria-label="Gå till startsidan" href="/" passHref>
+                    <Logo
+                        src="/logga.jpg"
+                        alt="Illustrerad logga med namn - NJS 925"
+                    />
                 </Link>
-                {showCart && <CartModal onCartClose={onCartClose} />}
-            </Wrapper>
-            <SubTitle>
+            </LogoWrapper>
+            <Title>
                 Handgjorda smycken i 925 sterling silver. Tillverkade i liten
                 skala, av mig Nina Johanna Sjöberg.
-            </SubTitle>
+            </Title>
             {/* <AwayMessage>
                 <h4>Semester tom 12 augusti!</h4>
                 <p>Ordrar som läggs innan dess kommer att skickas i turordning efter 12:e aug.</p>
                 <p>Trevlig sommar!</p>
             </AwayMessage> */}
-        </>
+        </HeaderWrapper>
     )
 }
 

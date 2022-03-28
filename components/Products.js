@@ -40,7 +40,7 @@ const DispalyProduct = styled.a`
     letter-spacing: 0.6px;
     font-weight: 200;
     @media (max-width: 700px) {
-        h3 {
+        h2 {
             font-size: 12px;
             margin: 8px 0px 0px;
         }
@@ -67,7 +67,7 @@ const ProductLink = ({ slug, img, alt, title, price, hidden, category }) => (
                     height={400}
                 />
                 <InfoWrapper>
-                    <h3>{title}</h3>
+                    <h2>{title}</h2>
                     <p>{price} SEK</p>
                 </InfoWrapper>
             </DispalyProduct>

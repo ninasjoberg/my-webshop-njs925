@@ -17,7 +17,7 @@ const Wrapper = styled.div`
     align-items: center;
 `
 
-const WrapperContent = styled.div`
+const MainWrapper = styled.main`
     max-width: 800px;
     min-height: 450px;
     padding: 25px 100px;
@@ -155,14 +155,14 @@ const Product = ({ product, categories, slug }) => {
             <>
                 <Header />
                 <Wrapper>
-                    <WrapperContent>
-                        <h3>Denna produkt finns tyvärr inte.</h3>
+                    <MainWrapper>
+                        <h2>Denna produkt finns tyvärr inte.</h2>
                         <Link href={'/'} passHref>
                             <NotFoundLink>
                                 se alla produkter från njs925.se
                             </NotFoundLink>
                         </Link>
-                    </WrapperContent>
+                    </MainWrapper>
                 </Wrapper>
                 <Footer />
             </>
@@ -241,8 +241,8 @@ const Product = ({ product, categories, slug }) => {
                 </Head>
                 <Header />
                 <Categories categories={categories} />
-                <WrapperContent>
-                    <h3>{title}</h3>
+                <MainWrapper>
+                    <h2>{title}</h2>
                     <BigImageWrapper>
                         {bigImage?.src && (
                             <Image
@@ -279,7 +279,7 @@ const Product = ({ product, categories, slug }) => {
                             addProductToCart(product)
                         }}
                     />
-                </WrapperContent>
+                </MainWrapper>
                 <Footer />
             </Wrapper>
         )

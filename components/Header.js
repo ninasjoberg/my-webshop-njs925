@@ -195,9 +195,9 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                 <Cart onClick={onCartClick}>
                     <CartText>VARUKORG</CartText>
                     <CartAmount>{cartCount()}</CartAmount>
-                    {showCart && <CartModal onCartClose={onCartClose} />}
                 </Cart>
             </Navigation>
+            {showCart && <CartModal onCartClose={onCartClose} />}
             <LogoWrapper>
                 <Link aria-label="Gå till startsidan" href="/" passHref>
                     <Logo

@@ -19,7 +19,6 @@ const Wrapper = styled.div`
 
 const MainWrapper = styled.main`
     max-width: 800px;
-    min-height: 450px;
     padding: 25px 100px;
     display: flex;
     flex-direction: column;
@@ -50,8 +49,7 @@ const NotFoundLink = styled.p`
 `
 
 const BigImageWrapper = styled.div`
-    max-width: 600px;
-    height: 600px;
+    display: flex;
     background-color: #cbcaca;
 `
 

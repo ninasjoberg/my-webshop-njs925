@@ -25,6 +25,12 @@ export default class MyDocument extends Document {
         }
     }
     render() {
+        const structuredData = {
+            '@context': 'https://njs925.se/sitemap.xml',
+            '@type': 'Webshop',
+            url: 'http://www.njs925.com',
+            logo: 'https://njs925.se/logga_njs925.webp',
+        }
         return (
             <Html lang="sv">
                 <Head>
@@ -64,6 +70,9 @@ export default class MyDocument extends Document {
                         href="/favicons/favicon-16x16.png"
                     />
                     <link rel="manifest" href="/favicons/site.webmanifest" />
+                    <script type="application/ld+json">
+                        {JSON.stringify(structuredData)}
+                    </script>
                 </Head>
                 <body style={{ margin: 0 }} ontouchstart="">
                     <Main />

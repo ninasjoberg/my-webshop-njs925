@@ -5,7 +5,7 @@ const SpecialOrdersSection = ({ title, text, images }) => {
     return (
         <PageWrapper flexDirection="row">
             <Image
-                src={images[0].props.src}
+                src={`${images[0].props.src}?fm=webp`}
                 alt={'produktbild silversmycke med en bergskristall'}
                 width={570}
                 height={570}

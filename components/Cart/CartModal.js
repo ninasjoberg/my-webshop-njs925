@@ -226,7 +226,7 @@ const CartModal = ({ onCartClose }) => {
                     <ItemWrapper>
                         <ProductInfoWrapper>
                             <Image
-                                src={item.images[0]}
+                                src={`${item.images[0]}?fm=webp`}
                                 alt="product picture"
                                 height="60px"
                                 width="60px"

@@ -22,13 +22,13 @@ const ProductionSection = ({ title, text, images }) => {
             {images && (
                 <ImagesDiv>
                     <Image
-                        src={images[0].props.src}
+                        src={`${images[0].props.src}?fm=webp`}
                         alt={'bild på tillverkning av silversmycke'}
                         width={600}
                         height={530}
                     ></Image>
                     <Image
-                        src={images[1].props.src}
+                        src={`${images[1].props.src}?fm=webp`}
                         alt={'bild på tillverkning av silversmycke'}
                         width={600}
                         height={530}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { withRouter } from 'next/router'
 import Link from 'next/link'
+import Image from 'next/image'
 import styled from 'styled-components'
 import { getItemListFromLocalStorage } from '../utils/localStorage'
 import { setCart } from '../redux/cartSlice'
@@ -103,10 +104,6 @@ const LinkStyle = styled.a`
     }
 `
 
-const Logo = styled.img`
-    width: 350px;
-`
-
 const Title = styled.h1`
     letter-spacing: 2px;
     font-weight: 100;
@@ -200,9 +197,11 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
             {showCart && <CartModal onCartClose={onCartClose} />}
             <LogoWrapper>
                 <Link aria-label="Gå till startsidan" href="/" passHref>
-                    <Logo
-                        src="/logga.jpg"
+                    <Image
+                        src="/logga_njs925.webp"
                         alt="Illustrerad logga med namn - NJS 925"
+                        width="350px"
+                        height="222px"
                     />
                 </Link>
             </LogoWrapper>

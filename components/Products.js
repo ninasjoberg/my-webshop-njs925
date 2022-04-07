@@ -61,7 +61,7 @@ const ProductLink = ({ slug, img, alt, title, price, hidden, category }) => (
         <Link href={`/produkt/${slug}`} passHref>
             <DispalyProduct>
                 <Image
-                    src={img}
+                    src={`${img}?fm=webp`}
                     alt={alt || 'produktbild silversmycke'}
                     width={400}
                     height={400}

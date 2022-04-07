@@ -20,7 +20,7 @@ const about = ({ pageInfo }) => {
         return (
             <Image
                 key={index}
-                src={imageUrl}
+                src={`${imageUrl}?fm=webp`}
                 alt="bild på Nina som tillverkar smyckena"
                 height={500}
                 width={500}

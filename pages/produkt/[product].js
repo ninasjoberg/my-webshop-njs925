@@ -208,7 +208,7 @@ const Product = ({ product, categories, slug }) => {
                     onClick={() => selectImg(imageUrl, images[index].alt)}
                 >
                     <Image
-                        src={imageUrl}
+                        src={`${imageUrl}?fm=webp`}
                         alt={images[index].alt || 'produktbild silversmycke'}
                         width="100%"
                         height="100%"
@@ -244,7 +244,7 @@ const Product = ({ product, categories, slug }) => {
                     <BigImageWrapper>
                         {bigImage?.src && (
                             <Image
-                                src={bigImage.src}
+                                src={`${bigImage.src}?fm=webp`}
                                 alt={bigImage.alt}
                                 width={600}
                                 height={600}

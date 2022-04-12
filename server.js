@@ -9,30 +9,11 @@ const handle = app.getRequestHandler()
 
 const redirects = [
     {
-        from: '/p/halsband-silver-kvinnosymbol',
-        to: '/product/halsband-silver-kvinnosymbol-m',
+        from: '/produkt/armband-silver-mountain',
+        to: '/produkt/armband-silver-mountains',
     },
-    {
-        from: '/product/halsband-silver-kvinnosymbol',
-        to: '/product/halsband-silver-kvinnosymbol-s',
-    },
-    {
-        from: '/p/halsband-silver-kvinnosymbol-xl',
-        to: '/product/halsband-silver-kvinnosymbol-xl',
-    },
-    { from: '/p/halsband-silver-svala', to: '/product/halsband-silver-svala' },
-    {
-        from: '/p/armband-silver-kvinnosymbol',
-        to: '/product/armband-silver-kvinnosymbol',
-    },
-    {
-        from: '/product/mountain',
-        to: '/product/armband-silver-mountain',
-    },
-    { from: '/p/*', to: '/' },
-    { from: '/products/*', to: '/' },
-    { from: '/shop', to: '/' },
-    { from: '/product-care', to: '/info' },
+    { from: '/about', to: '/om' },
+    { from: '/conditions', to: '/villkor' },
 ]
 
 app.prepare()

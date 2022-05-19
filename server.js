@@ -78,7 +78,7 @@ app.prepare()
             const msg = {
                 to: 'info@njs925.se',
                 from: email,
-                subject: 'Order njs925.se',
+                subject: 'Order NJS 925',
                 text: street,
                 html: `
                 <div style="margin: 8%; max-width: 600px;">

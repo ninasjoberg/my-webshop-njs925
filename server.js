@@ -76,7 +76,7 @@ app.prepare()
 
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             const msg = {
-                to: 'bellpepperstore@gmail.com',
+                to: 'info@njs925.se',
                 from: email,
                 subject: name,
                 text: street,

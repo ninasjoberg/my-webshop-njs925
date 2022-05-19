@@ -281,10 +281,7 @@ const CartModal = ({ onCartClose }) => {
             <CartWrapper confirmation>
                 <h3>Något gick fel..</h3>
                 <p>Tyvärr skickades inte din order iväg korrrekt.</p>
-                <p>
-                    Vänligen försök igen eller kontakta mig på
-                    bellpepperstore@gmail.com
-                </p>
+                <p>Vänligen försök igen eller kontakta mig på info@njs925.se</p>
                 <ActionButton buttonText="Stäng" onClick={onCartClose} />
             </CartWrapper>
         )

@@ -43,7 +43,11 @@ const about = ({ pageInfo }) => {
                 <link rel="canonical" href="https://www.njs925.se/about" />
             </Head>
             <Header />
-            <PageContent imageArray={imageArray} texArray={texArray} />
+            <PageContent
+                imageArray={imageArray}
+                texArray={texArray}
+                isAboutPage={true}
+            />
             <Footer />
         </Wrapper>
     )

@@ -36,6 +36,16 @@ const ContentWrapper = styled.div`
     }
 `
 
+const LogoInfo = styled.p`
+    font-size: 18px;
+    @media (max-width: 700px) {
+        font-size: 16px;
+    }
+    a {
+        text-decoration: underline;
+    }
+`
+
 const ContactLinks = styled.div`
     display: flex;
     padding: 60px;
@@ -46,17 +56,43 @@ const ContactLinks = styled.div`
     }
 `
 
-const PageContent = ({ imageArray, texArray }) => {
+const PageContent = ({ imageArray, texArray, isAboutPage }) => {
     return (
         <MainWrapper>
             <ContentWrapper>
                 {imageArray && imageArray}
                 {texArray}
+                {isAboutPage && (
+                    <>
+                        <LogoInfo>
+                            Den fina logga ni ser på sidan är skapad av{' '}
+                            <a
+                                href="https://www.mirakurkiala.com/"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Mira Kurkiala.
+                            </a>
+                        </LogoInfo>
+                        <p>
+                            /Nina Johanna Sjöberg, Godkänd för F-skatt,
+                            registrerad för moms.
+                        </p>
+                    </>
+                )}
                 <ContactLinks>
-                    <a href="mailto: info@njs925.se">
+                    <a
+                        href="mailto: info@njs925.se"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         <span>email</span>
                     </a>
-                    <a href="https://www.instagram.com/njs925.se/">
+                    <a
+                        href="https://www.instagram.com/njs925.se/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         <span>instagram</span>
                     </a>
                     <a

@@ -60,7 +60,11 @@ const GlobalStyle = createGlobalStyle`
 			opacity: 1;
 		}
 		a {
-			font-size: 16px;
+			font-size: 18px;
+			color: #3c3c3c;
+			@media (max-width: 700px) {
+        		font-size: 16px;
+    		}
 		}
 	}
 `

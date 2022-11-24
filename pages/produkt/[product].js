@@ -18,11 +18,9 @@ const Wrapper = styled.div`
 `
 
 const MainWrapper = styled.main`
-    max-width: 800px;
-    padding: 25px 100px;
+    width: 80%;
+    padding: 50px;
     display: flex;
-    flex-direction: column;
-    align-items: left;
     background-color: #f5eee8;
     margin: 32px 0;
     text-align: left;
@@ -30,11 +28,12 @@ const MainWrapper = styled.main`
         margin-bottom: 10px;
     }
     @media (max-width: 700px) {
-        padding: 0px 25px 10px;
+        flex-direction: column;
+        width: 100%;
+        padding: 25px 25px 25px;
         margin: 0;
         p {
             margin-bottom: 6px;
-            /* font-weight: normal; */
             letter-spacing: 0.8px;
         }
     }
@@ -48,16 +47,39 @@ const NotFoundLink = styled.p`
     }
 `
 
+const LeftWrapper = styled.div`
+    width: 50%;
+    margin-right: 26px;
+    @media (max-width: 700px) {
+        width: 100%;
+    }
+`
+
+const RightWrapper = styled.div`
+    width: 50%;
+    h2 {
+        margin-top: 0px;
+        color: #3c3c3c;
+        font-weight: bold;
+    }
+    @media (max-width: 700px) {
+        width: 100%;
+    }
+`
+
 const BigImageWrapper = styled.div`
     display: flex;
     background-color: #cbcaca;
+    max-width: 600px;
 `
 
 const ImagesWrapper = styled.div`
     display: flex;
     flex-flow: wrap;
     width: 100%;
-    margin-bottom: 16px;
+    @media (max-width: 700px) {
+        margin-bottom: 16px;
+    }
 `
 
 const SmallImgWrapper = styled.div`
@@ -66,20 +88,27 @@ const SmallImgWrapper = styled.div`
     width: 96px;
     height: auto;
     background-color: #cbcaca;
-    &:last-child {
-        margin-right: 0px;
-    }
     ${({ active }) =>
         active &&
         `
-        opacity: 0.5;
+        filter: brightness(120%);
 	`}
+    &:last-child {
+        margin-right: 0px;
+    }
+    @media (hover: hover) {
+        /* hack to not apply hover on mobile devices, because it does not work well with touchscreens */
+        &:hover {
+            filter: brightness(120%);
+        }
+    }
 `
 
 const PriceText = styled.p`
     color: #4da7bc;
     font-size: 18px;
     margin: 12px 0;
+    font-weight: bold;
 `
 
 const Dropdown = styled.select`
@@ -92,6 +121,7 @@ const Dropdown = styled.select`
     padding-left: 6px;
     background-color: white;
     margin-top: 38px;
+    cursor: pointer;
     :focus {
         outline: 0;
     }
@@ -200,7 +230,7 @@ const Product = ({ product, categories, slug }) => {
             })
 
         const imageArray = imageUrls?.map((imageUrl, index) => {
-            const active = imageUrl === bigImage
+            const active = imageUrl === bigImage.src
             return (
                 <SmallImgWrapper
                     key={index}
@@ -240,42 +270,46 @@ const Product = ({ product, categories, slug }) => {
                 <Header />
                 <Categories categories={categories} />
                 <MainWrapper>
-                    <h2>{title}</h2>
-                    <BigImageWrapper>
-                        {bigImage?.src && (
-                            <Image
-                                src={`${bigImage.src}?fm=webp`}
-                                alt={bigImage.alt}
-                                width={600}
-                                height={600}
-                            />
+                    <LeftWrapper>
+                        <BigImageWrapper>
+                            {bigImage?.src && (
+                                <Image
+                                    src={`${bigImage.src}?fm=webp`}
+                                    alt={bigImage.alt}
+                                    width={600}
+                                    height={600}
+                                />
+                            )}
+                        </BigImageWrapper>
+                        <ImagesWrapper>{imageArray}</ImagesWrapper>
+                    </LeftWrapper>
+                    <RightWrapper>
+                        <h2>{title}</h2>
+                        {texArray}
+                        <PriceText>{price} SEK</PriceText>
+                        {variantOptions && (
+                            <Dropdown
+                                onChange={selectVariant}
+                                defaultValue={variants[0]?.title}
+                            >
+                                {variantOptions}
+                            </Dropdown>
                         )}
-                    </BigImageWrapper>
-                    <ImagesWrapper>{imageArray}</ImagesWrapper>
-                    {texArray}
-                    <PriceText>{price} SEK</PriceText>
-                    {variantOptions && (
-                        <Dropdown
-                            onChange={selectVariant}
-                            defaultValue={variants[0]?.title}
-                        >
-                            {variantOptions}
-                        </Dropdown>
-                    )}
-                    {sizeOptions && (
-                        <Dropdown
-                            onChange={selectSize}
-                            defaultValue={size[0]?.title}
-                        >
-                            {sizeOptions}
-                        </Dropdown>
-                    )}
-                    <ActionButton
-                        buttonText="Lägg till"
-                        onClick={() => {
-                            addProductToCart(product)
-                        }}
-                    />
+                        {sizeOptions && (
+                            <Dropdown
+                                onChange={selectSize}
+                                defaultValue={size[0]?.title}
+                            >
+                                {sizeOptions}
+                            </Dropdown>
+                        )}
+                        <ActionButton
+                            buttonText="Lägg till"
+                            onClick={() => {
+                                addProductToCart(product)
+                            }}
+                        />
+                    </RightWrapper>
                 </MainWrapper>
                 <Footer />
             </Wrapper>

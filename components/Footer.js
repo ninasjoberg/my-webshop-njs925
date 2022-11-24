@@ -14,10 +14,12 @@ const Wrapper = styled.footer`
     a {
         color: #f5eee8;
         font-weight: 100;
+        @media (max-width: 700px) {
+            font-size: 14px;
+        }
     }
     a {
         margin-right: 10px;
-        font-size: 18px;
     }
 `
 

@@ -19,6 +19,7 @@ const Divider = styled.div`
 
 const Navigation = styled.nav`
     display: flex;
+    justify-content: center;
     padding: 20px 0px 10px 0px;
     margin: 0 auto;
     background-color: #fff;
@@ -27,6 +28,7 @@ const Navigation = styled.nav`
         width: 100vw;
         overflow-x: scroll;
         padding: 12px 0px 10px 0px;
+        justify-content: flex-start;
     }
 `
 

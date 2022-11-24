@@ -39,6 +39,7 @@ const DispalyProduct = styled.a`
     color: #51616a;
     letter-spacing: 0.6px;
     font-weight: 200;
+    position: relative;
     @media (max-width: 700px) {
         h2 {
             font-size: 12px;
@@ -51,12 +52,21 @@ const DispalyProduct = styled.a`
     }
 `
 
+const OutOfStockDiv = styled.div`
+    position: absolute;
+    z-index: 1;
+    background: #f5eee8;
+    top: 40px;
+    right: 0;
+    padding: 0px 10px;
+`
+
 const InfoWrapper = styled.div`
     padding-bottom: 12px;
     width: 100%;
 `
 
-const ProductLink = ({ slug, img, alt, title, price, hidden, category }) => (
+const ProductLink = ({ slug, img, alt, title, price, hidden, outOfStock }) => (
     <ProductWrapper hidden={hidden}>
         <Link href={`/produkt/${slug}`} passHref>
             <DispalyProduct>
@@ -66,6 +76,7 @@ const ProductLink = ({ slug, img, alt, title, price, hidden, category }) => (
                     width={400}
                     height={400}
                 />
+                {outOfStock && <OutOfStockDiv>Tillfälligt slut</OutOfStockDiv>}
                 <InfoWrapper>
                     <h2>{title}</h2>
                     <p>{price} SEK</p>
@@ -91,6 +102,7 @@ const Products = ({ products, selectedCategory }) => {
                 img={product.firstImageUrl}
                 alt={product.images[0].alt}
                 price={product.price}
+                outOfStock={product.outOfStock || false}
             />
         )
     })

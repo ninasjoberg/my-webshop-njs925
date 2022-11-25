@@ -88,10 +88,11 @@ const ProductLink = ({ slug, img, alt, title, price, hidden, outOfStock }) => (
 
 const Products = ({ products, selectedCategory }) => {
     const productList = products.map((product) => {
-        const isHidden =
-            selectedCategory === 'Alla produkter'
-                ? false
-                : !product?.categories?.includes(selectedCategory)
+        const inCategory = product?.categories?.includes(selectedCategory)
+        const inCollection =
+            product?.collections?.includes(selectedCategory) || false
+        const showProuct = inCategory || inCollection
+        const isHidden = selectedCategory === 'Visa alla' ? false : !showProuct
         return (
             <ProductLink
                 key={product._id}

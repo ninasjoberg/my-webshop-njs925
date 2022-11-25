@@ -132,7 +132,7 @@ const Dropdown = styled.select`
     }
 `
 
-const Product = ({ product, categories, slug }) => {
+const Product = ({ product, categories, collections, slug }) => {
     const [bigImage, setBigImage] = useState('')
     const [selectedVariant, setSelectedVariant] = useState('')
     const [selectedSize, setSelectedSize] = useState('')
@@ -270,7 +270,7 @@ const Product = ({ product, categories, slug }) => {
                     />
                 </Head>
                 <Header />
-                <Categories categories={categories} />
+                <Categories categories={categories} collections={collections} />
                 <MainWrapper>
                     <LeftWrapper>
                         <BigImageWrapper>
@@ -371,12 +371,20 @@ export const getStaticProps = async ({ params }) => {
         const categories = await client.fetch(categoryQuery, {
             slug,
         })
-        categories.unshift({ title: 'Alla produkter' })
+        categories.unshift({ title: 'Visa alla' })
+
+        const collectionQuery = `*[_type == 'collection'] {
+            title,
+        }`
+        const collections = await client.fetch(collectionQuery, {
+            slug,
+        })
 
         return {
             props: {
                 product,
                 categories,
+                collections,
                 slug,
             },
             // Next.js will attempt to re-generate the page:

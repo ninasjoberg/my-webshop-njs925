@@ -16,15 +16,15 @@ const Wrapper = styled.div`
     align-items: center;
 `
 
-const IndexPage = ({ products, categories }) => {
-    const [selectedCategory, setSelectedCategory] = useState('Alla produkter')
+const IndexPage = ({ products, categories, collections }) => {
+    const [selectedCategory, setSelectedCategory] = useState('Visa alla')
     const router = useRouter()
 
     useEffect(() => {
         if (router.query.category) {
             setSelectedCategory(router.query.category)
         } else {
-            setSelectedCategory('Alla produkter')
+            setSelectedCategory('Visa alla')
         }
     }, [router])
 
@@ -42,6 +42,7 @@ const IndexPage = ({ products, categories }) => {
             <Categories
                 categories={categories}
                 selectedCategory={selectedCategory}
+                collections={collections}
             />
             <main>
                 <Products
@@ -65,6 +66,7 @@ export const getServerSideProps = async () => {
         outOfStock,
 		"firstImageUrl": images[0].asset->url,
 		"categories": categories[]->title,
+        "collections": collections[]->title,
 	}`
     const products = await client.fetch(productsQuery)
 
@@ -72,13 +74,20 @@ export const getServerSideProps = async () => {
 		title,
 	}`
 
+    const collectionQuery = `*[_type == 'collection'] {
+		title,
+	}`
+
     const categories = await client.fetch(categoryQuery)
-    categories.unshift({ title: 'Alla produkter' })
+    categories.unshift({ title: 'Visa alla' })
+
+    const collections = await client.fetch(collectionQuery)
 
     return {
         props: {
             products,
             categories,
+            collections,
         },
     }
 }

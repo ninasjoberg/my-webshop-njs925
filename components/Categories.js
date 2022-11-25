@@ -12,23 +12,33 @@ const Divider = styled.div`
     width: 750px;
     height: 2px;
     background-color: #f1f1f1;
+    margin-bottom: 20px;
     @media (max-width: 1000px) {
         width: 80%;
+        margin-bottom: 12px;
     }
 `
 
 const Navigation = styled.nav`
     display: flex;
     justify-content: center;
-    padding: 20px 0px 10px 0px;
     margin: 0 auto;
     background-color: #fff;
     width: 100%;
     @media (max-width: 700px) {
         width: 100vw;
         overflow-x: scroll;
-        padding: 12px 0px 10px 0px;
         justify-content: flex-start;
+    }
+`
+
+const SmallDivider = styled.div`
+    width: 25px;
+    height: 2px;
+    background-color: #f1f1f1;
+    margin: 4px;
+    @media (max-width: 1000px) {
+        width: 16%;
     }
 `
 
@@ -59,17 +69,22 @@ const LinkDiv = styled.div`
 `
 
 const Space = styled.div`
-    padding-left: 12px;
+    @media (max-width: 700px) {
+        padding-left: 12px;
+    }
 `
 
-const Categories = ({ categories, selectedCategory }) => {
+const Categories = ({ categories, selectedCategory, collections }) => {
     return (
         <Wrapper>
             <Divider />
             <Navigation>
                 {categories.map((category) => {
+                    if (category.title === 'Kvinnosymboler') {
+                        return
+                    }
                     const url =
-                        category.title === 'Alla produkter'
+                        category.title === 'Visa alla'
                             ? '/'
                             : `/?category=${category.title}`
                     return (
@@ -79,6 +94,23 @@ const Categories = ({ categories, selectedCategory }) => {
                         >
                             <Link href={url} passHref>
                                 {category.title}
+                            </Link>
+                        </LinkDiv>
+                    )
+                })}
+                <Space />
+            </Navigation>
+            <SmallDivider />
+            <Navigation>
+                {collections.map((collection) => {
+                    const url = `/?category=${collection.title}`
+                    return (
+                        <LinkDiv
+                            selected={selectedCategory === collection.title}
+                            key={collection._id}
+                        >
+                            <Link href={url} passHref>
+                                {collection.title}
                             </Link>
                         </LinkDiv>
                     )

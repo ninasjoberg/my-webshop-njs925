@@ -19,6 +19,7 @@ const Wrapper = styled.div`
 
 const MainWrapper = styled.main`
     width: 80%;
+    max-width: 1200px;
     padding: 50px;
     display: flex;
     background-color: #f5eee8;
@@ -120,7 +121,8 @@ const Dropdown = styled.select`
     font-size: 16px;
     padding-left: 6px;
     background-color: white;
-    margin-top: 38px;
+    border-radius: 4px;
+    margin: 20px 20px 0px 0px;
     cursor: pointer;
     :focus {
         outline: 0;

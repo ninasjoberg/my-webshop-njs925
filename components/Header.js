@@ -14,7 +14,7 @@ const HeaderWrapper = styled.header`
 
 const Navigation = styled.nav`
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     top: 0;
     background-color: #3c3c3c;
     width: 100%;

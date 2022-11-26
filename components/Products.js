@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import styled from 'styled-components'
+import replaceSwedishLetters from '../utils/replaceSwedishLetters'
 
 const Wrapper = styled.ul`
     display: flex;
@@ -66,9 +67,18 @@ const InfoWrapper = styled.div`
     width: 100%;
 `
 
-const ProductLink = ({ slug, img, alt, title, price, hidden, outOfStock }) => (
+const ProductLink = ({
+    slug,
+    img,
+    alt,
+    title,
+    price,
+    hidden,
+    outOfStock,
+    selectedCategory,
+}) => (
     <ProductWrapper hidden={hidden}>
-        <Link href={`/produkt/${slug}`} passHref>
+        <Link href={`/produkt/${slug}/?category=${selectedCategory}`} passHref>
             <DispalyProduct>
                 <Image
                     src={`${img}?fm=webp`}
@@ -88,11 +98,17 @@ const ProductLink = ({ slug, img, alt, title, price, hidden, outOfStock }) => (
 
 const Products = ({ products, selectedCategory }) => {
     const productList = products.map((product) => {
-        const inCategory = product?.categories?.includes(selectedCategory)
-        const inCollection =
-            product?.collections?.includes(selectedCategory) || false
-        const showProuct = inCategory || inCollection
-        const isHidden = selectedCategory === 'Visa alla' ? false : !showProuct
+        const category = product?.categories?.length
+            ? replaceSwedishLetters(product.categories[0]).toLowerCase()
+            : null
+
+        const collection = product?.collections?.length
+            ? replaceSwedishLetters(product.collections[0]).toLowerCase()
+            : null
+
+        const showProuct =
+            category === selectedCategory || collection === selectedCategory
+        const isHidden = selectedCategory === 'visa alla' ? false : !showProuct
         return (
             <ProductLink
                 key={product._id}
@@ -104,6 +120,7 @@ const Products = ({ products, selectedCategory }) => {
                 alt={product.images[0].alt}
                 price={product.price}
                 outOfStock={product.outOfStock || false}
+                selectedCategory={selectedCategory}
             />
         )
     })

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import client from '../../cmsApi'
 import { addCart } from '../../redux/cartSlice'
@@ -23,7 +24,7 @@ const MainWrapper = styled.main`
     padding: 50px;
     display: flex;
     background-color: #f5eee8;
-    margin: 32px 0;
+    margin: 12px 0;
     text-align: left;
     p {
         margin-bottom: 10px;
@@ -32,7 +33,7 @@ const MainWrapper = styled.main`
         flex-direction: column;
         width: 100%;
         padding: 25px 25px 25px;
-        margin: 0;
+        margin: 6px 0 0;
         p {
             margin-bottom: 6px;
             letter-spacing: 0.8px;
@@ -137,6 +138,7 @@ const Product = ({ product, categories, collections, slug }) => {
     const [selectedVariant, setSelectedVariant] = useState('')
     const [selectedSize, setSelectedSize] = useState('')
     const dispatch = useDispatch()
+    const router = useRouter()
 
     useEffect(() => {
         if (product?.imageUrls) {
@@ -270,7 +272,11 @@ const Product = ({ product, categories, collections, slug }) => {
                     />
                 </Head>
                 <Header />
-                <Categories categories={categories} collections={collections} />
+                <Categories
+                    categories={categories}
+                    collections={collections}
+                    selectedCategory={router.query.category?.toLowerCase()}
+                />
                 <MainWrapper>
                     <LeftWrapper>
                         <BigImageWrapper>
@@ -367,14 +373,16 @@ export const getStaticProps = async ({ params }) => {
 
         const categoryQuery = `*[_type == 'category'] {
             title,
+            slug,
         }`
         const categories = await client.fetch(categoryQuery, {
             slug,
         })
-        categories.unshift({ title: 'Visa alla' })
+        categories.unshift({ title: 'visa alla' })
 
         const collectionQuery = `*[_type == 'collection'] {
             title,
+            slug,
         }`
         const collections = await client.fetch(collectionQuery, {
             slug,

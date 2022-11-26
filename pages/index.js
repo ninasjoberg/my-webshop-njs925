@@ -17,14 +17,14 @@ const Wrapper = styled.div`
 `
 
 const IndexPage = ({ products, categories, collections }) => {
-    const [selectedCategory, setSelectedCategory] = useState('Visa alla')
+    const [selectedCategory, setSelectedCategory] = useState('visa alla')
     const router = useRouter()
 
     useEffect(() => {
         if (router.query.category) {
-            setSelectedCategory(router.query.category)
+            setSelectedCategory(router.query.category.toLowerCase())
         } else {
-            setSelectedCategory('Visa alla')
+            setSelectedCategory('visa alla')
         }
     }, [router])
 
@@ -72,14 +72,16 @@ export const getServerSideProps = async () => {
 
     const categoryQuery = `*[_type == 'category'] {
 		title,
+        slug,
 	}`
 
     const collectionQuery = `*[_type == 'collection'] {
 		title,
+        slug,
 	}`
 
     const categories = await client.fetch(categoryQuery)
-    categories.unshift({ title: 'Visa alla' })
+    categories.unshift({ title: 'visa alla' })
 
     const collections = await client.fetch(collectionQuery)
 

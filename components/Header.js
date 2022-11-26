@@ -37,7 +37,6 @@ const LogoWrapper = styled.div`
     justify-content: center;
     cursor: pointer;
     @media (max-width: 700px) {
-        padding: 12px;
         max-width: 100%;
         margin-top: 45px;
     }
@@ -108,7 +107,6 @@ const Title = styled.h1`
     letter-spacing: 2px;
     font-weight: 100;
     font-size: 16px;
-    padding-bottom: 12px;
     @media (max-width: 700px) {
         font-size: 14px;
         margin: 0 auto;

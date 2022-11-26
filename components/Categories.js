@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
+import replaceSwedishLetters from '../utils/replaceSwedishLetters'
 
 const Wrapper = styled.div`
     display: flex;
@@ -12,10 +13,9 @@ const Divider = styled.div`
     width: 750px;
     height: 2px;
     background-color: #f1f1f1;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     @media (max-width: 1000px) {
         width: 80%;
-        margin-bottom: 12px;
     }
 `
 
@@ -80,18 +80,15 @@ const Categories = ({ categories, selectedCategory, collections }) => {
             <Divider />
             <Navigation>
                 {categories.map((category) => {
-                    if (category.title === 'Kvinnosymboler') {
-                        return
-                    }
                     const url =
-                        category.title === 'Visa alla'
+                        category.title === 'visa alla'
                             ? '/'
-                            : `/?category=${category.title}`
+                            : `/?category=${category.slug.current}`
+                    const selected =
+                        selectedCategory ===
+                        replaceSwedishLetters(category.title)
                     return (
-                        <LinkDiv
-                            selected={selectedCategory === category.title}
-                            key={category._id}
-                        >
+                        <LinkDiv selected={selected} key={category._id}>
                             <Link href={url} passHref>
                                 {category.title}
                             </Link>
@@ -103,12 +100,12 @@ const Categories = ({ categories, selectedCategory, collections }) => {
             <SmallDivider />
             <Navigation>
                 {collections.map((collection) => {
-                    const url = `/?category=${collection.title}`
+                    const url = `/?category=${collection.slug.current}`
+                    const selected =
+                        selectedCategory ===
+                        replaceSwedishLetters(collection.title)
                     return (
-                        <LinkDiv
-                            selected={selectedCategory === collection.title}
-                            key={collection._id}
-                        >
+                        <LinkDiv selected={selected} key={collection._id}>
                             <Link href={url} passHref>
                                 {collection.title}
                             </Link>

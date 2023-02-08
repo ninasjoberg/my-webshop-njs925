@@ -77,9 +77,8 @@ app.prepare()
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             const msg = {
                 to: 'info@njs925.se',
-                from: email,
+                from: 'Order <info@njs925.se>',
                 subject: 'Order NJS 925',
-                text: street,
                 html: `
                 <div style="margin: 8%; max-width: 600px;">
                     <h2>Ny beställning från:</h2>

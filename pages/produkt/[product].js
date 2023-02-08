@@ -209,6 +209,7 @@ const Product = ({ product, categories, collections, slug }) => {
             images,
             size,
             titleForGoogleSearch,
+            outOfStock,
         } = product
 
         //sanity gives you an empty array if you have once opened this field, even if you never add or have deleted the variant..
@@ -311,12 +312,16 @@ const Product = ({ product, categories, collections, slug }) => {
                                 {sizeOptions}
                             </Dropdown>
                         )}
-                        <ActionButton
-                            buttonText="Lägg till"
-                            onClick={() => {
-                                addProductToCart(product)
-                            }}
-                        />
+                        {outOfStock ? (
+                            <p>Tillfälligt slut i lager.</p>
+                        ) : (
+                            <ActionButton
+                                buttonText="Lägg till"
+                                onClick={() => {
+                                    addProductToCart(product)
+                                }}
+                            />
+                        )}
                     </RightWrapper>
                 </MainWrapper>
                 <Footer />
@@ -361,6 +366,7 @@ export const getStaticProps = async ({ params }) => {
             images,
             variants,
             size,
+            outOfStock,
             "imageUrls": images[].asset->url,
             "body": body.se[].children[],
         }`

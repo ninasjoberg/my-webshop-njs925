@@ -38,7 +38,7 @@ const LogoWrapper = styled.div`
     cursor: pointer;
     @media (max-width: 700px) {
         max-width: 40%;
-        margin-top: 45px auto 0px;
+        margin: 45px auto 0px;
     }
 `
 

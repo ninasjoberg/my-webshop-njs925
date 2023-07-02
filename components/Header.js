@@ -30,15 +30,15 @@ const LinkWrapper = styled.div`
     display: flex;
     flex-flow: wrap;
 `
-
+ß
 const LogoWrapper = styled.div`
     display: flex;
     margin-top: 68px;
     justify-content: center;
     cursor: pointer;
     @media (max-width: 700px) {
-        max-width: 100%;
-        margin-top: 45px;
+        max-width: 40%;
+        margin-top: 45px auto 0px;
     }
 `
 

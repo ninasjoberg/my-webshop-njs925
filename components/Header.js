@@ -30,7 +30,7 @@ const LinkWrapper = styled.div`
     display: flex;
     flex-flow: wrap;
 `
-ß
+
 const LogoWrapper = styled.div`
     display: flex;
     margin-top: 68px;

@@ -22,3 +22,5 @@ see also https://github.com/ninasjoberg/my-webshop-cms for Sanity schemas.
 `nvm use`
 `npm i && npm run build`
 `npm run dev`
+
+test

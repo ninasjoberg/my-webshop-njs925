@@ -13,42 +13,42 @@
   <url>
     <loc>https://njs925.se/info</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.20</priority>
   </url>
   <url>
     <loc>https://njs925.se/om</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.20</priority>
   </url>
   <url>
     <loc>https://njs925.se/villkor</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.20</priority>
   </url>
   <url>
     <loc>https://njs925.se/?category=Armband</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://njs925.se/?category=Halsband</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://njs925.se/?category=Kvinnosymboler</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://njs925.se/?category=%C3%96rh%C3%A4ngen</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://njs925.se/?category=Ringar</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://njs925.se/produkt/ring-silver-vingslag</loc>
@@ -141,27 +141,12 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://njs925.se/produkt/halsband-silver-svala</loc>
-    <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
     <loc>https://njs925.se/produkt/halsband-silver-moon</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://njs925.se/produkt/halsband-silver-cube</loc>
-    <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://njs925.se/produkt/orhangen-silver-girls</loc>
-    <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://njs925.se/produkt/orhangen-silver-geometric-drop</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
     <priority>0.80</priority>
   </url>
@@ -196,22 +181,7 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://njs925.se/produkt/orhange-silver-guldkorn</loc>
-    <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
     <loc>https://njs925.se/produkt/ring-silver-venus</loc>
-    <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://njs925.se/produkt/orhangen-silver-circle</loc>
-    <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://njs925.se/produkt/ring-silver-ametist</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
     <priority>0.80</priority>
   </url>
@@ -241,11 +211,6 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://njs925.se/produkt/specialbestallning</loc>
-    <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
     <loc>https://njs925.se/produkt/halsband-silver-blabar</loc>
     <lastmod>2023-08-15T19:57:43+00:00</lastmod>
     <priority>0.80</priority>
@@ -255,11 +220,25 @@
     <lastmod>2023-08-15T19:57:43+00:00</lastmod>
     <priority>0.80</priority>
   </url>
+    <url>
+    <loc>https://njs925.se/produkt/ring-silver-lily</loc>
+    <lastmod>2023-10-27T19:57:43+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  </url>
+    <url>
+    <loc>https://njs925.se/produkt/ring-silver-sunset</loc>
+    <lastmod>2023-10-27T19:57:43+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
   <url>
     <loc>https://njs925.se/produkt/sale</loc>
     <lastmod>2022-03-15T19:57:43+00:00</lastmod>
-    <priority>0.80</priority>
+    <priority>0.50</priority>
   </url>
-
-
+    <url>
+    <loc>https://njs925.se/produkt/specialbestallning</loc>
+    <lastmod>2022-03-15T19:57:43+00:00</lastmod>
+    <priority>0.50</priority>
+  </url>
 </urlset>

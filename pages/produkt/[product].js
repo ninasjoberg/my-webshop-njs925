@@ -59,7 +59,7 @@ const LeftWrapper = styled.div`
 
 const RightWrapper = styled.div`
     width: 50%;
-    h2 {
+    h1 {
         margin-top: 0px;
         color: #3c3c3c;
         font-weight: bold;
@@ -188,7 +188,7 @@ const Product = ({ product, categories, collections, slug }) => {
                 <Header />
                 <Wrapper>
                     <MainWrapper>
-                        <h2>Denna produkt finns tyvärr inte.</h2>
+                        <h1>Denna produkt finns tyvärr inte.</h1>
                         <Link href={'/'} passHref>
                             <NotFoundLink>
                                 se alla produkter från njs925.se
@@ -203,7 +203,9 @@ const Product = ({ product, categories, collections, slug }) => {
         const {
             imageUrls,
             title,
+            titleExtended,
             price,
+            amount,
             body,
             variants,
             images,
@@ -257,6 +259,9 @@ const Product = ({ product, categories, collections, slug }) => {
             return <p key={section[0]._key}>{section[0].text}</p>
         })
 
+        const productTitle = `${title} - ${titleExtended}`
+        const productPrice = amount ? `${price} SEK / ${amount}` : `${price} SEK`
+
         return (
             <Wrapper>
                 <Head>
@@ -293,9 +298,9 @@ const Product = ({ product, categories, collections, slug }) => {
                         <ImagesWrapper>{imageArray}</ImagesWrapper>
                     </LeftWrapper>
                     <RightWrapper>
-                        <h2>{title}</h2>
+                        <h1>{productTitle}</h1>
                         {texArray}
-                        <PriceText>{price} SEK</PriceText>
+                        <PriceText>{productPrice}</PriceText>
                         {variantOptions && (
                             <Dropdown
                                 onChange={selectVariant}
@@ -360,9 +365,11 @@ export const getStaticProps = async ({ params }) => {
         const productQuery = `*[_type == 'product' && slug.current == '${params.product}'][0] {
             _id,
             title,
+            titleExtended,
             slug,
             titleForGoogleSearch,
             price,
+            amount,
             images,
             variants,
             size,

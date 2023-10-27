@@ -63,6 +63,7 @@ export const getServerSideProps = async () => {
 		slug,
 		images,
 		price,
+        amount,
         outOfStock,
 		"firstImageUrl": images[0].asset->url,
 		"categories": categories[]->title,

@@ -103,10 +103,22 @@ const LinkStyle = styled.a`
     }
 `
 
-const Title = styled.h1`
+const TitleH1 = styled.h1`
     letter-spacing: 2px;
     font-weight: 100;
     font-size: 16px;
+    @media (max-width: 700px) {
+        font-size: 14px;
+        margin: 0 auto;
+        padding: 0px 12px 12px 12px;
+    }
+`
+
+const TitleP = styled.p`
+    letter-spacing: 2px;
+    font-weight: 100;
+    font-size: 16px;
+    margin: 12px auto;
     @media (max-width: 700px) {
         font-size: 14px;
         margin: 0 auto;
@@ -129,6 +141,8 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
     const [showCart, setShowCart] = useState(false)
     const cart = useSelector((state) => state.cart.items)
     const dispatch = useDispatch()
+
+    const isProductPage = pathname.includes('produkt')
 
     useEffect(() => {
         if (checkLocalStorage) {
@@ -203,10 +217,17 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                     />
                 </Link>
             </LogoWrapper>
-            <Title>
+            {isProductPage ? 
+                <TitleP>
                 Handgjorda smycken i 925 sterling silver. Tillverkade i liten
                 skala, av mig Nina Johanna Sjöberg.
-            </Title>
+                </TitleP>
+            :
+                <TitleH1>
+                    Handgjorda smycken i 925 sterling silver. Tillverkade i liten
+                    skala, av mig Nina Johanna Sjöberg.
+                </TitleH1>
+            }
             {/* <AwayMessage>
                 <h4>Semester tom 12 augusti!</h4>
                 <p>Ordrar som läggs innan dess kommer att skickas i turordning efter 12:e aug.</p>

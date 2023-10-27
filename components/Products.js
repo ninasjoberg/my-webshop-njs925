@@ -72,11 +72,12 @@ const ProductLink = ({
     img,
     alt,
     title,
-    price,
+    productPrice,
     hidden,
     outOfStock,
     selectedCategory,
-}) => (
+}) => {
+    return (
     <ProductWrapper hidden={hidden}>
         <Link href={`/produkt/${slug}/?category=${selectedCategory}`} passHref>
             <DispalyProduct>
@@ -89,37 +90,38 @@ const ProductLink = ({
                 {outOfStock && <OutOfStockDiv>Tillfälligt slut</OutOfStockDiv>}
                 <InfoWrapper>
                     <h2>{title}</h2>
-                    <p>{price} SEK</p>
+                    <p>{productPrice}</p>
                 </InfoWrapper>
             </DispalyProduct>
         </Link>
     </ProductWrapper>
-)
+    )
+}
 
 const Products = ({ products, selectedCategory }) => {
     const productList = products.map((product) => {
-        const category = product?.categories?.length
-            ? replaceSwedishLetters(product.categories[0]).toLowerCase()
+        const {amount, price, categories, collections, _id, title, slug, firstImageUrl, images, outOfStock} = product
+        const productPrice = amount ? `${price} SEK / ${amount}` : `${price} SEK`
+        const category = categories?.length
+            ? replaceSwedishLetters(categories[0]).toLowerCase()
             : null
-
-        const collection = product?.collections?.length
-            ? replaceSwedishLetters(product.collections[0]).toLowerCase()
+        const collection = collections?.length
+            ? replaceSwedishLetters(collections[0]).toLowerCase()
             : null
-
         const showProuct =
             category === selectedCategory || collection === selectedCategory
         const isHidden = selectedCategory === 'visa alla' ? false : !showProuct
         return (
             <ProductLink
-                key={product._id}
+                key={_id}
                 hidden={isHidden}
-                id={product._id}
-                title={product.title}
-                slug={product.slug.current}
-                img={product.firstImageUrl}
-                alt={product.images[0].alt}
-                price={product.price}
-                outOfStock={product.outOfStock || false}
+                id={_id}
+                title={title}
+                slug={slug.current}
+                img={firstImageUrl}
+                alt={images[0].alt}
+                productPrice={productPrice}
+                outOfStock={outOfStock || false}
                 selectedCategory={selectedCategory}
             />
         )

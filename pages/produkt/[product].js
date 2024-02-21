@@ -143,7 +143,7 @@ const Product = ({ product, categories, collections, slug }) => {
     useEffect(() => {
         if (product?.imageUrls) {
             setBigImage({
-                src: product.imageUrls[0],
+                src: `${product.imageUrls[0]}/${product.originalFilename[0]}/?fm=webp`,
                 alt: product.images[0].alt,
             })
         }
@@ -212,6 +212,7 @@ const Product = ({ product, categories, collections, slug }) => {
             size,
             titleForGoogleSearch,
             outOfStock,
+            originalFilename,
         } = product
 
         //sanity gives you an empty array if you have once opened this field, even if you never add or have deleted the variant..
@@ -237,15 +238,16 @@ const Product = ({ product, categories, collections, slug }) => {
             })
 
         const imageArray = imageUrls?.map((imageUrl, index) => {
-            const active = imageUrl === bigImage.src
+            const active = bigImage?.src?.includes(imageUrl)
+            const urlWithFileName = `${imageUrl}/${originalFilename[index]}/?fm=webp`
             return (
                 <SmallImgWrapper
                     key={index}
                     active={active}
-                    onClick={() => selectImg(imageUrl, images[index].alt)}
+                    onClick={() => selectImg(urlWithFileName, images[index].alt)}
                 >
                     <Image
-                        src={`${imageUrl}?fm=webp`}
+                        src={urlWithFileName}
                         alt={images[index].alt || 'produktbild silversmycke'}
                         width="100%"
                         height="100%"
@@ -288,7 +290,7 @@ const Product = ({ product, categories, collections, slug }) => {
                         <BigImageWrapper>
                             {bigImage?.src && (
                                 <Image
-                                    src={`${bigImage.src}?fm=webp`}
+                                    src={bigImage.src}
                                     alt={bigImage.alt}
                                     width={600}
                                     height={600}
@@ -375,6 +377,7 @@ export const getStaticProps = async ({ params }) => {
             size,
             outOfStock,
             "imageUrls": images[].asset->url,
+            "originalFilename": images[].asset->originalFilename,
             "body": body.se[].children[],
         }`
 

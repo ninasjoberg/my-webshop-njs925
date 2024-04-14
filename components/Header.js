@@ -33,9 +33,11 @@ const LinkWrapper = styled.div`
 
 const LogoWrapper = styled.div`
     display: flex;
-    margin-top: 68px;
-    justify-content: center;
+    margin-top: 75px;
+    margin-left: 20px;
+    // justify-content: center;
     cursor: pointer;
+    width: 200px;
     @media (max-width: 700px) {
         max-width: 40%;
         margin: 45px auto 0px;
@@ -207,27 +209,29 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                 </Cart>
             </Navigation>
             {showCart && <CartModal onCartClose={onCartClose} />}
-            <LogoWrapper>
-                <Link aria-label="Gå till startsidan" href="/" passHref>
-                    <Image
-                        src="/logga_njs925.webp"
-                        alt="Illustrerad logga med namn - NJS 925"
-                        width="350px"
-                        height="222px"
-                    />
-                </Link>
-            </LogoWrapper>
-            {isProductPage ? 
-                <TitleP>
-                Handgjorda smycken i 925 sterling silver. Tillverkade i liten
-                skala, av mig Nina Johanna Sjöberg.
-                </TitleP>
-            :
-                <TitleH1>
+            <div>
+                <LogoWrapper>
+                    <Link aria-label="Gå till startsidan" href="/" passHref>
+                        <Image
+                            src="/logga_njs925.jpg"
+                            alt="Illustrerad logga med namn - NJS 925"
+                            width="350px"
+                            height="222px"
+                        />
+                    </Link>
+                </LogoWrapper>
+                {isProductPage ? 
+                    <TitleP>
                     Handgjorda smycken i 925 sterling silver. Tillverkade i liten
                     skala, av mig Nina Johanna Sjöberg.
-                </TitleH1>
-            }
+                    </TitleP>
+                :
+                    <TitleH1>
+                        Handgjorda smycken i 925 sterling silver. Tillverkade i liten
+                        skala, av mig Nina Johanna Sjöberg.
+                    </TitleH1>
+                }
+            </div>
             {/* <AwayMessage>
                 <h4>Semester tom 12 augusti!</h4>
                 <p>Ordrar som läggs innan dess kommer att skickas i turordning efter 12:e aug.</p>

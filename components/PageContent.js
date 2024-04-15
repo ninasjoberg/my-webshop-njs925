@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const MainWrapper = styled.main`
-    background-color: #f5eee8;
+    background-color: #fef3f0;
     width: 100%;
     min-height: 100vh;
     display: flex;

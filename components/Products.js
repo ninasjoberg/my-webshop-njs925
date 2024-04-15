@@ -56,7 +56,7 @@ const DispalyProduct = styled.a`
 const OutOfStockDiv = styled.div`
     position: absolute;
     z-index: 1;
-    background: #f5eee8;
+    background: #fef3f0;
     top: 40px;
     right: 0;
     padding: 0px 10px;
@@ -78,30 +78,48 @@ const ProductLink = ({
     selectedCategory,
 }) => {
     return (
-    <ProductWrapper hidden={hidden}>
-        <Link href={`/produkt/${slug}/?category=${selectedCategory}`} passHref>
-            <DispalyProduct>
-                <Image
-                    src={`${img}?fm=webp`}
-                    alt={alt || 'produktbild silversmycke'}
-                    width={400}
-                    height={400}
-                />
-                {outOfStock && <OutOfStockDiv>Tillfälligt slut</OutOfStockDiv>}
-                <InfoWrapper>
-                    <h2>{title}</h2>
-                    <p>{productPrice}</p>
-                </InfoWrapper>
-            </DispalyProduct>
-        </Link>
-    </ProductWrapper>
+        <ProductWrapper hidden={hidden}>
+            <Link
+                href={`/produkt/${slug}/?category=${selectedCategory}`}
+                passHref
+            >
+                <DispalyProduct>
+                    <Image
+                        src={`${img}?fm=webp`}
+                        alt={alt || 'produktbild silversmycke'}
+                        width={400}
+                        height={400}
+                    />
+                    {outOfStock && (
+                        <OutOfStockDiv>Tillfälligt slut</OutOfStockDiv>
+                    )}
+                    <InfoWrapper>
+                        <h2>{title}</h2>
+                        <p>{productPrice}</p>
+                    </InfoWrapper>
+                </DispalyProduct>
+            </Link>
+        </ProductWrapper>
     )
 }
 
 const Products = ({ products, selectedCategory }) => {
     const productList = products.map((product) => {
-        const {amount, price, categories, collections, _id, title, slug, firstImageUrl, images, outOfStock} = product
-        const productPrice = amount ? `${price} SEK / ${amount}` : `${price} SEK`
+        const {
+            amount,
+            price,
+            categories,
+            collections,
+            _id,
+            title,
+            slug,
+            firstImageUrl,
+            images,
+            outOfStock,
+        } = product
+        const productPrice = amount
+            ? `${price} SEK / ${amount}`
+            : `${price} SEK`
         const category = categories?.length
             ? replaceSwedishLetters(categories[0]).toLowerCase()
             : null

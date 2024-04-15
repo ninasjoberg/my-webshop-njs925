@@ -78,7 +78,7 @@ const RemoveButton = styled.button`
     height: 24px;
     border: none;
     border-radius: 50%;
-    background-color: #f5eee8;
+    background-color: #fef3f0;
     cursor: pointer;
     span {
         color: #000;

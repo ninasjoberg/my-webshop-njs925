@@ -11,6 +11,7 @@ import Header from '../../components/Header'
 import Categories from '../../components/Categories'
 import ActionButton from '../../components/ActionButton.js'
 import Footer from '../../components/Footer'
+import Dropdown from '../../components/Dropdown'
 
 const Wrapper = styled.div`
     display: flex;
@@ -23,7 +24,7 @@ const MainWrapper = styled.main`
     max-width: 1200px;
     padding: 50px;
     display: flex;
-    background-color: #f5eee8;
+    background-color: #fef3f0;
     margin: 12px 0;
     text-align: left;
     p {
@@ -50,7 +51,7 @@ const NotFoundLink = styled.p`
 `
 
 const LeftWrapper = styled.div`
-    width: 50%;
+    width: 60%;
     margin-right: 26px;
     @media (max-width: 700px) {
         width: 100%;
@@ -58,11 +59,13 @@ const LeftWrapper = styled.div`
 `
 
 const RightWrapper = styled.div`
-    width: 50%;
+    width: 40%;
     h1 {
         margin-top: 0px;
         color: #3c3c3c;
-        font-weight: bold;
+    }
+    p {
+        font-size: 16px;
     }
     @media (max-width: 700px) {
         width: 100%;
@@ -107,36 +110,19 @@ const SmallImgWrapper = styled.div`
 `
 
 const PriceText = styled.p`
-    color: #4da7bc;
-    font-size: 18px;
-    margin: 12px 0;
-    font-weight: bold;
-`
-
-const Dropdown = styled.select`
-    color: #51616a;
-    border-radius: 2px;
-    border: 1px solid rgb(203, 207, 209);
-    height: 36px;
-    width: 200px;
-    font-size: 16px;
-    padding-left: 6px;
-    background-color: white;
-    border-radius: 4px;
-    margin: 20px 20px 0px 0px;
-    cursor: pointer;
-    :focus {
-        outline: 0;
-    }
-    @media (max-width: 700px) {
-        width: 100%;
-    }
+    color: #29889e;
+    font-size: 24px;
+    margin-top: 20px;
 `
 
 const Product = ({ product, categories, collections, slug }) => {
     const [bigImage, setBigImage] = useState('')
-    const [selectedVariant, setSelectedVariant] = useState('')
-    const [selectedSize, setSelectedSize] = useState('')
+    const [selectedVariant, setSelectedVariant] = useState(
+        product.variants ? product.variants[0]?.title : ''
+    )
+    const [selectedSize, setSelectedSize] = useState(
+        product.size ? [0]?.title : ''
+    )
     const dispatch = useDispatch()
     const router = useRouter()
 
@@ -179,6 +165,7 @@ const Product = ({ product, categories, collections, slug }) => {
     }
 
     const selectSize = (e) => {
+        console.log('här', e.target)
         setSelectedSize(e.target.value)
     }
 
@@ -215,27 +202,8 @@ const Product = ({ product, categories, collections, slug }) => {
             originalFilename,
         } = product
 
-        //sanity gives you an empty array if you have once opened this field, even if you never add or have deleted the variant..
-        const variantOptions =
-            variants?.length > 0 &&
-            variants.map((item) => {
-                return (
-                    <option key={item._key} value={item.title}>
-                        {item.title}
-                    </option>
-                )
-            })
-
-        //sanity gives you an empty array if you have once opened this field, even if you never add or have deleted the variant..
-        const sizeOptions =
-            size?.length > 0 &&
-            size.map((item) => {
-                return (
-                    <option key={item._key} value={item.title}>
-                        {item.title}
-                    </option>
-                )
-            })
+        const showVariants = variants?.length > 0
+        const showSizes = size?.length > 0
 
         const imageArray = imageUrls?.map((imageUrl, index) => {
             const active = bigImage?.src?.includes(imageUrl)
@@ -244,7 +212,9 @@ const Product = ({ product, categories, collections, slug }) => {
                 <SmallImgWrapper
                     key={index}
                     active={active}
-                    onClick={() => selectImg(urlWithFileName, images[index].alt)}
+                    onClick={() =>
+                        selectImg(urlWithFileName, images[index].alt)
+                    }
                 >
                     <Image
                         src={urlWithFileName}
@@ -262,7 +232,9 @@ const Product = ({ product, categories, collections, slug }) => {
         })
 
         const productTitle = `${title} - ${titleExtended}`
-        const productPrice = amount ? `${price} SEK / ${amount}` : `${price} SEK`
+        const productPrice = amount
+            ? `${price} SEK / ${amount}`
+            : `${price} SEK`
 
         return (
             <Wrapper>
@@ -303,27 +275,25 @@ const Product = ({ product, categories, collections, slug }) => {
                         <h1>{productTitle}</h1>
                         {texArray}
                         <PriceText>{productPrice}</PriceText>
-                        {variantOptions && (
+                        {showVariants && (
                             <Dropdown
+                                selctedValue={selectedVariant}
+                                variants={variants}
                                 onChange={selectVariant}
-                                defaultValue={variants[0]?.title}
-                            >
-                                {variantOptions}
-                            </Dropdown>
+                            />
                         )}
-                        {sizeOptions && (
+                        {showSizes && (
                             <Dropdown
+                                selctedValue={selectedSize}
+                                variants={size}
                                 onChange={selectSize}
-                                defaultValue={size[0]?.title}
-                            >
-                                {sizeOptions}
-                            </Dropdown>
+                            />
                         )}
                         {outOfStock ? (
                             <p>Tillfälligt slut i lager.</p>
                         ) : (
                             <ActionButton
-                                buttonText="Lägg till"
+                                buttonText="Lägg i varukorgen"
                                 onClick={() => {
                                     addProductToCart(product)
                                 }}

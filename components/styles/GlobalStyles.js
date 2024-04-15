@@ -40,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
 		p {
 			margin: 0;
 			color: #3c3c3c;
-    		font-size: 18px;
+    		font-size: 16px;
 			font-weight: 200;
 			font-family: helvetica;
 			@media (max-width: 700px) {

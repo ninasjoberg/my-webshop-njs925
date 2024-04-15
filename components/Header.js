@@ -35,9 +35,8 @@ const LogoWrapper = styled.div`
     display: flex;
     margin-top: 75px;
     margin-left: 20px;
-    // justify-content: center;
+    justify-content: center;
     cursor: pointer;
-    width: 200px;
     @media (max-width: 700px) {
         max-width: 40%;
         margin: 45px auto 0px;
@@ -129,7 +128,7 @@ const TitleP = styled.p`
 `
 
 // const AwayMessage = styled.div`
-//     background-color: #f5eee8;
+//     background-color: #fef3f0;
 // 	margin: auto;
 //     padding: 12px;
 // 	h4 {
@@ -215,22 +214,22 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                         <Image
                             src="/logga_njs925.jpg"
                             alt="Illustrerad logga med namn - NJS 925"
-                            width="350px"
-                            height="222px"
+                            width="200px"
+                            height="125px"
                         />
                     </Link>
                 </LogoWrapper>
-                {isProductPage ? 
+                {isProductPage ? (
                     <TitleP>
-                    Handgjorda smycken i 925 sterling silver. Tillverkade i liten
-                    skala, av mig Nina Johanna Sjöberg.
+                        Handgjorda smycken i 925 sterling silver. Tillverkade i
+                        liten skala, av mig Nina Johanna Sjöberg.
                     </TitleP>
-                :
+                ) : (
                     <TitleH1>
-                        Handgjorda smycken i 925 sterling silver. Tillverkade i liten
-                        skala, av mig Nina Johanna Sjöberg.
+                        Handgjorda smycken i 925 sterling silver. Tillverkade i
+                        liten skala, av mig Nina Johanna Sjöberg.
                     </TitleH1>
-                }
+                )}
             </div>
             {/* <AwayMessage>
                 <h4>Semester tom 12 augusti!</h4>

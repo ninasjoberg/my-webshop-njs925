@@ -11,7 +11,7 @@ export const MainWrapper = styled.main`
     max-width: 1200px;
     padding: 50px;
     display: flex;
-    background-color: #f5eee8;
+    background-color: #fef3f0;
     margin: 12px 0;
     text-align: left;
     p {

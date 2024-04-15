@@ -56,7 +56,7 @@ const DispalyProduct = styled.a`
 const OutOfStockDiv = styled.div`
     position: absolute;
     z-index: 1;
-    background: #f5eee8;
+    background: #fef3f0;
     top: 40px;
     right: 0;
     padding: 0px 10px;

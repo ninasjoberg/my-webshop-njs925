@@ -2,8 +2,10 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 const Select = styled.div`
-    width: 60%;
+    width: 100%;
     margin-right: 10px;
+    margin-top: 20px;
+    position: relative;
 `
 const Button = styled.div`
     cursor: pointer;
@@ -13,8 +15,9 @@ const Button = styled.div`
     align-items: center;
     padding: 10px;
     background: white;
-    border: 1px solid #a9a4a4;
+    border: 1px solid #d6d6d6;
     height: 40px;
+    border-radius: 2px;
     &:hover {
         background: #f0f0f0;
     }
@@ -33,6 +36,10 @@ const Content = styled.div`
     width: 100%;
     background: white;
     display: ${({ isActive }) => (isActive ? 'block' : 'none')};
+    position: absolute;
+    @media (max-width: 700px) {
+        bottom: 40px;
+    }
 `
 
 const Item = styled.option`

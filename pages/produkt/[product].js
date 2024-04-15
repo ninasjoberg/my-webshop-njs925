@@ -24,7 +24,7 @@ const MainWrapper = styled.main`
     max-width: 1200px;
     padding: 50px;
     display: flex;
-    background-color: #f5eee8;
+    background-color: #fef3f0;
     margin: 12px 0;
     text-align: left;
     p {
@@ -51,7 +51,7 @@ const NotFoundLink = styled.p`
 `
 
 const LeftWrapper = styled.div`
-    width: 50%;
+    width: 60%;
     margin-right: 26px;
     @media (max-width: 700px) {
         width: 100%;
@@ -59,7 +59,7 @@ const LeftWrapper = styled.div`
 `
 
 const RightWrapper = styled.div`
-    width: 50%;
+    width: 40%;
     h1 {
         margin-top: 0px;
         color: #3c3c3c;
@@ -111,13 +111,8 @@ const SmallImgWrapper = styled.div`
 
 const PriceText = styled.p`
     color: #29889e;
-    font-size: 20px;
-    margin: 20px 0;
-`
-
-const Row = styled.div`
-    display: flex;
-    justify-content: space-between;
+    font-size: 24px;
+    margin-top: 20px;
 `
 
 const Product = ({ product, categories, collections, slug }) => {
@@ -280,32 +275,30 @@ const Product = ({ product, categories, collections, slug }) => {
                         <h1>{productTitle}</h1>
                         {texArray}
                         <PriceText>{productPrice}</PriceText>
-                        <Row>
-                            {showVariants && (
-                                <Dropdown
-                                    selctedValue={selectedVariant}
-                                    variants={variants}
-                                    onChange={selectVariant}
-                                />
-                            )}
-                            {showSizes && (
-                                <Dropdown
-                                    selctedValue={selectedSize}
-                                    variants={size}
-                                    onChange={selectSize}
-                                />
-                            )}
-                            {outOfStock ? (
-                                <p>Tillfälligt slut i lager.</p>
-                            ) : (
-                                <ActionButton
-                                    buttonText="Köp"
-                                    onClick={() => {
-                                        addProductToCart(product)
-                                    }}
-                                />
-                            )}
-                        </Row>
+                        {showVariants && (
+                            <Dropdown
+                                selctedValue={selectedVariant}
+                                variants={variants}
+                                onChange={selectVariant}
+                            />
+                        )}
+                        {showSizes && (
+                            <Dropdown
+                                selctedValue={selectedSize}
+                                variants={size}
+                                onChange={selectSize}
+                            />
+                        )}
+                        {outOfStock ? (
+                            <p>Tillfälligt slut i lager.</p>
+                        ) : (
+                            <ActionButton
+                                buttonText="Lägg i varukorgen"
+                                onClick={() => {
+                                    addProductToCart(product)
+                                }}
+                            />
+                        )}
                     </RightWrapper>
                 </MainWrapper>
                 <Footer />

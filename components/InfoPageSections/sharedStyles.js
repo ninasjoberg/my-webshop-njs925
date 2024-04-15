@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const PageWrapper = styled.div`
-    background-color: #f5eee8;
+    background-color: #fef3f0;
     width: 100%;
     display: flex;
     flex-direction: column;

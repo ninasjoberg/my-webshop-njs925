@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Button = styled.button`
-    width: 40%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -13,6 +13,8 @@ const Button = styled.button`
     border: none;
     color: white;
     height: 40px;
+    border-radius: 25px;
+    margin-top: 20px;
     :hover {
         background-color: #257385;
     }

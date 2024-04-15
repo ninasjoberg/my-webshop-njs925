@@ -160,13 +160,12 @@ const Product = ({ product, categories, collections, slug }) => {
         setBigImage({ src: imgSrc, alt: imgAlt })
     }
 
-    const selectVariant = (e) => {
-        setSelectedVariant(e.target.value)
+    const selectVariant = (variant) => {
+        setSelectedVariant(variant)
     }
 
-    const selectSize = (e) => {
-        console.log('här', e.target)
-        setSelectedSize(e.target.value)
+    const selectSize = (variant) => {
+        setSelectedSize(variant)
     }
 
     if (Object.keys(product).length === 0 && product.constructor === Object) {

@@ -32,20 +32,21 @@ const Arrow = styled.span`
         isActive ? 'transform: rotate(-135deg)' : 'transform: rotate(45deg)'};
 `
 
-const Content = styled.div`
+const Content = styled.ul`
     width: 100%;
     background: white;
     display: ${({ isActive }) => (isActive ? 'block' : 'none')};
     position: absolute;
+    z-index: 2;
+    margin: 0;
     @media (max-width: 700px) {
         bottom: 40px;
     }
 `
 
-const Item = styled.option`
+const Item = styled.li`
     padding: 10px;
     cursor: pointer;
-    z-index: -1;
     display: block;
     width: 100%;
     &:hover {
@@ -68,14 +69,14 @@ const Dropdown = ({ onChange, selctedValue, variants }) => {
             </Button>
             <Content isActive={isActive}>
                 {variants.map((variant) => {
+                    const { title } = variant
                     return (
                         <Item
-                            onClick={(e) => {
-                                onChange(e), setIsActive(!isActive)
+                            onClick={() => {
+                                onChange(title), setIsActive(!isActive)
                             }}
-                            value={variant.title}
                         >
-                            {variant.title}
+                            {title}
                         </Item>
                     )
                 })}

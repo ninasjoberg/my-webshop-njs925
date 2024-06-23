@@ -6,8 +6,11 @@ ongoing hobby project, develop and updating when I have time..
 
 see also https://github.com/ninasjoberg/my-webshop-cms for Sanity schemas.
 
-ToDo:
-refactor code ...
+***ToDo:***
+* refactor and split up code
+* add some tests
+* add a payment solution like Strip or direct payment with Swish 
+
 
 ## Languages and techniques:
 

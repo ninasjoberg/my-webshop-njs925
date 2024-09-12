@@ -8,10 +8,14 @@ export const TextWrapper = styled.div`
     padding: 0px 20px 20px;
     p {
         margin-bottom: 12px;
+        font-size: 16px;
     }
     @media (min-width: 1310px) {
         padding: 0px 200px;
         padding-bottom: 40px;
+        p {
+            font-size: 18px;
+        }
     }
 `
 

@@ -1,27 +1,28 @@
 import styled from 'styled-components'
-import {
-    TextHeading,
-    TextWrapper,
-} from './sharedStyles.js'
+import { SectionWrapper, TextHeading } from './sharedStyles.js'
 
-const PageWrapper = styled.div`
-	background-color: #eed2c4;
-	width: 100%;
-	display: flex;
-    justify-content: left;
-    max-width: 1800px;
+export const TextWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0px 20px 20px;
+    p {
+        margin-bottom: 12px;
+    }
+    @media (min-width: 1310px) {
+        padding: 0px 200px;
+        padding-bottom: 40px;
+    }
 `
 
 const ProductCareSection = ({ title, text }) => {
     return (
-		<PageWrapper>
-			<TextWrapper fullscreenWidth="67%">
-				<TextHeading>
-					{title}
-				</TextHeading>
-				{text}
-			</TextWrapper>
-		</PageWrapper>
+        <SectionWrapper>
+            <TextWrapper>
+                <TextHeading>{title}</TextHeading>
+                {text}
+            </TextWrapper>
+        </SectionWrapper>
     )
 }
 

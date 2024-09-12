@@ -2,11 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 
 const MainWrapper = styled.main`
-    background-color: #fef3f0;
+    background-color: #fff;
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    @media (min-width: 1310px) {
+        background-color: #fef3f0;
+    }
 `
 
 const ContentWrapper = styled.div`

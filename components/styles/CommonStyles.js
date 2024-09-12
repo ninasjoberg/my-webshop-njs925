@@ -11,13 +11,14 @@ export const MainWrapper = styled.main`
     max-width: 1200px;
     padding: 50px;
     display: flex;
-    background-color: #fef3f0;
+    background-color: #fff;
     margin: 12px 0;
     text-align: left;
     p {
         margin-bottom: 10px;
     }
     @media (max-width: 700px) {
+        background-color: #fef3f0;
         flex-direction: column;
         width: 100%;
         padding: 25px 25px 25px;

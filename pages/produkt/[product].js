@@ -31,6 +31,7 @@ const MainWrapper = styled.main`
         margin-bottom: 10px;
     }
     @media (max-width: 700px) {
+        background-color: #fff;
         flex-direction: column;
         width: 100%;
         padding: 25px 25px 25px;
@@ -70,11 +71,16 @@ const RightWrapper = styled.div`
     @media (max-width: 700px) {
         width: 100%;
     }
+    @media (min-width: 1310px) {
+        p {
+            font-size: 18px;
+        }
+    }
 `
 
 const BigImageWrapper = styled.div`
     display: flex;
-    background-color: #cbcaca;
+    background-color: #eeeeee;
     max-width: 600px;
 `
 
@@ -92,7 +98,7 @@ const SmallImgWrapper = styled.div`
     cursor: pointer;
     width: 96px;
     height: auto;
-    background-color: #cbcaca;
+    background-color: #eeeeee;
     ${({ active }) =>
         active &&
         `

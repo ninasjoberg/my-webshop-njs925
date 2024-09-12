@@ -21,6 +21,9 @@ const Button = styled.button`
     :active {
         opacity: 0.4;
     }
+    @media (min-width: 1310px) {
+        height: 52px;
+    }
 `
 
 const ActionButton = ({ buttonText, onClick }) => {

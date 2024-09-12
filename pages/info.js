@@ -6,7 +6,6 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ProductionSection from '../components/InfoPageSections/ProductionSection'
 import WebDevSection from '../components/InfoPageSections/WebDevSection'
-import SpecialOrdersSection from '../components/InfoPageSections/SpecialOrdersSection'
 import ProductCareSection from '../components/InfoPageSections/ProductCareSection'
 
 const Wrapper = styled.div`
@@ -21,6 +20,13 @@ const MainWrapper = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #fff;
+    width: 100%;
+    max-width: 1800px;
+    @media (min-width: 1310px) {
+        padding: 0px 60px;
+        background-color: #fef3f0;
+    }
 `
 
 const Info = ({ pageInfo }) => {
@@ -52,15 +58,6 @@ const Info = ({ pageInfo }) => {
             : ''
 
         switch (section.title) {
-            case 'Specialbeställningar och förlovningsringar':
-                return (
-                    <SpecialOrdersSection
-                        text={textArray}
-                        images={imageArray}
-                        title={section.title}
-                    />
-                )
-
             case 'Tillverkning':
                 return (
                     <ProductionSection

@@ -1,20 +1,27 @@
 import Image from 'next/image'
-import { PageWrapper, TextHeading, TextWrapper } from './sharedStyles.js'
+import {
+    SectionWrapper,
+    TextHeading,
+    TextWrapper,
+    ImageDiv,
+} from './sharedStyles.js'
 
 const WebDevSection = ({ title, text, images }) => {
     return (
-        <PageWrapper flexDirection="row">
-            <Image
-                src={`${images[0].props.src}?fm=webp`}
-                alt={'dator'}
-                width={570}
-                height={450}
-            ></Image>
-            <TextWrapper fullscreenWidth="63%">
+        <SectionWrapper flexDirection="row">
+            <ImageDiv fullscreenWidth="50%" marginRight>
+                <Image
+                    src={`${images[0].props.src}?fm=webp`}
+                    alt={'dator'}
+                    width={700}
+                    height={485}
+                ></Image>
+            </ImageDiv>
+            <TextWrapper fullscreenWidth="50%">
                 <TextHeading>{title}</TextHeading>
                 {text}
             </TextWrapper>
-        </PageWrapper>
+        </SectionWrapper>
     )
 }
 

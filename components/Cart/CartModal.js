@@ -78,13 +78,16 @@ const RemoveButton = styled.button`
     height: 24px;
     border: none;
     border-radius: 50%;
-    background-color: #fef3f0;
+    background-color: #fff;
     cursor: pointer;
     span {
         color: #000;
     }
     :hover {
         opacity: 0.4;
+    }
+    @media (min-width: 1310px) {
+        background-color: #fef3f0;
     }
 `
 

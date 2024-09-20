@@ -120,6 +120,7 @@ export const getStaticProps = async () => {
         props: {
             pageInfo,
         },
+        revalidate: 30,
     }
 }
 

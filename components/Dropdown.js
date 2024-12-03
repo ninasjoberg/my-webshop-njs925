@@ -49,6 +49,8 @@ const Item = styled.li`
     cursor: pointer;
     display: block;
     width: 100%;
+    ${({ selected }) =>
+        selected ? 'background: #d2d2d2' : 'background: #ffff'};
     &:hover {
         background: #f0f0f0;
     }
@@ -70,8 +72,10 @@ const Dropdown = ({ onChange, selctedValue, variants }) => {
             <Content isActive={isActive}>
                 {variants.map((variant) => {
                     const { title } = variant
+                    const selected = title === selctedValue
                     return (
                         <Item
+                            selected={selected}
                             onClick={() => {
                                 onChange(title), setIsActive(!isActive)
                             }}

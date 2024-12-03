@@ -107,7 +107,7 @@ const LinkStyle = styled.a`
 const TitleH1 = styled.h1`
     letter-spacing: 2px;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 18px;
     @media (max-width: 700px) {
         font-size: 14px;
         margin: 0 auto;
@@ -118,7 +118,7 @@ const TitleH1 = styled.h1`
 const TitleP = styled.p`
     letter-spacing: 2px;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 18px;
     margin: 12px auto;
     @media (max-width: 700px) {
         font-size: 14px;

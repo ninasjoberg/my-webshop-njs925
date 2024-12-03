@@ -59,6 +59,9 @@ const LinkDiv = styled.div`
         white-space: nowrap;
         text-transform: uppercase;
         letter-spacing: 2px;
+        @media (min-width: 700px) {
+            font-size: 14px;
+        }
         @media (hover: hover) {
             /* hack to not apply hover on mobile devices, because it does not work well with touchscreens */
             &:hover {

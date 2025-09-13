@@ -1,6 +1,6 @@
 const express = require('express')
 const next = require('next')
-const sgMail = require('@sendgrid/mail')
+const nodemailer = require('nodemailer')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 3000
@@ -27,12 +27,22 @@ app.prepare()
             })
         })
 
-        server.post('/api/address', (req, res) => {
+        server.post('/api/address', async (req, res) => {
             const { name, street, zipcode, city, email } = req.body.userInfo
 
-            const orderHTML = req.body.order
-                .map(({ title, images, price, quantity, variant, size }) => {
-                    return `
+            try {
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'bellpepperstore@gmail.com',
+                        pass: process.env.GMAIL_APP_PASS,
+                    },
+                })
+
+                const orderHTML = req.body.order
+                    .map(
+                        ({ title, images, price, quantity, variant, size }) => {
+                            return `
                     <table style="margin-bottom: 20px; width: 100%">
                         <tr>
                             <td style="width: 25%; padding-right: 4%;">
@@ -71,15 +81,15 @@ app.prepare()
                         </tr>
                     </table>
                 `
-                })
-                .join('')
+                        }
+                    )
+                    .join('')
 
-            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-            const msg = {
-                to: 'info@njs925.se',
-                from: 'Order <info@njs925.se>',
-                subject: 'Order NJS 925',
-                html: `
+                const mailOptions = {
+                    to: 'info@njs925.se',
+                    from: 'Order <info@njs925.se>',
+                    subject: 'Order NJS 925',
+                    html: `
                 <div style="margin: 8%; max-width: 600px;">
                     <h2>Ny beställning från:</h2>
                     <div>
@@ -107,10 +117,20 @@ app.prepare()
                     </table>
                 </div>
                 `,
-            }
-            sgMail.send(msg)
+                }
 
-            res.send('success')
+                await transporter.sendMail(mailOptions)
+
+                res.status(200).json({
+                    success: true,
+                    message: 'success',
+                })
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    message: 'Failed to send email',
+                })
+            }
         })
 
         server.get('*', (req, res) => {

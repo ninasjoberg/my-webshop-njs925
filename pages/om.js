@@ -40,7 +40,7 @@ const about = ({ pageInfo }) => {
                     name="description"
                     content="Handgjorda smycken i 925 sterling silver, tillverkade i liten skala. Kvinnosymboler, geometriska former och stilren design."
                 />
-                <link rel="canonical" href="https://www.njs925.se/about" />
+                <link rel="canonical" href="https://njs925.se/about" />
             </Head>
             <Header />
             <PageContent

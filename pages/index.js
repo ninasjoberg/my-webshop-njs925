@@ -36,7 +36,7 @@ const IndexPage = ({ products, categories, collections }) => {
                     name="description"
                     content="Handgjorda smycken i 925 sterling silver, tillverkade i liten skala. Kvinnosymboler, geometriska former och stilren design."
                 />
-                <link rel="canonical" href="https://www.njs925.se" />
+                <link rel="canonical" href="https://njs925.se" />
             </Head>
             <Header />
             <Categories

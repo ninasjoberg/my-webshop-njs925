@@ -245,16 +245,59 @@ const Product = ({ product, categories, collections, slug }) => {
         return (
             <Wrapper>
                 <Head>
-                    <title>
-                        {titleForGoogleSearch || 'silversmycke från NJS 925'}
-                    </title>
+                    {/* 1. Unik titel för varje produkt */}
+                    <title>{`${titleForGoogleSearch} | Handgjorda Silversmycken | NJS 925`}</title>
+
+                    {/* 2. Unik beskrivning – undvik samma text på alla 105 sidor! */}
                     <meta
                         name="description"
-                        content="Handgjort smycken i 925 sterling silver, tillverkat i liten skala av mig i min verkstad."
+                        content={`Köp ${titleForGoogleSearch.toLowerCase()}. Handgjort i 925 sterling silver i min egen verkstad. Unik design från NJS 925.`}
                     />
+
                     <link
                         rel="canonical"
-                        href={`https://www.njs925.se/produkt/${slug}`}
+                        href={`https://njs925.se/produkt/${slug}`}
+                    />
+
+                    {/* 3. Open Graph - Gör att bilden ser snygg ut när man delar på FB/Instagram */}
+                    <meta property="og:title" content={titleForGoogleSearch} />
+                    <meta
+                        property="og:description"
+                        content="Handgjorda silversmycken från NJS 925."
+                    />
+                    <meta
+                        property="og:image"
+                        content={`${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`}
+                    />
+                    <meta property="og:type" content="product" />
+
+                    {/* 4. JSON-LD - DETTA ÄR NYCKELN FÖR BILDER & PRIS I SÖKRESULTATET */}
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{
+                            __html: JSON.stringify({
+                                '@context': 'https://schema.org/',
+                                '@type': 'Product',
+                                name: titleForGoogleSearch,
+                                image: `${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`,
+                                description:
+                                    'Handgjort smycke i 925 sterling silver.',
+                                sku: slug,
+                                brand: {
+                                    '@type': 'Brand',
+                                    name: 'NJS 925',
+                                },
+                                offers: {
+                                    '@type': 'Offer',
+                                    url: `https://njs925.se/produkt/${slug}`,
+                                    priceCurrency: 'SEK',
+                                    price: productPrice,
+                                    availability: 'https://schema.org/InStock',
+                                    itemCondition:
+                                        'https://schema.org/NewCondition',
+                                },
+                            }),
+                        }}
                     />
                 </Head>
                 <Header />

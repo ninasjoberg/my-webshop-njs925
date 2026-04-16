@@ -291,7 +291,7 @@ const Product = ({ product, categories, collections, slug }) => {
                                     '@type': 'Offer',
                                     url: `https://njs925.se/produkt/${slug}`,
                                     priceCurrency: 'SEK',
-                                    price: productPrice,
+                                    price: price,
                                     availability: 'https://schema.org/InStock',
                                     itemCondition:
                                         'https://schema.org/NewCondition',

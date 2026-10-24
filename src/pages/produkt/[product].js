@@ -10,6 +10,7 @@ import {
     SITE_NAME,
     capitalize,
     breadcrumbSchema,
+    shippingDetailsSchema,
 } from '../../lib/seo'
 import JsonLd from '../../components/JsonLd'
 import { addCart } from '../../redux/cartSlice'
@@ -232,6 +233,14 @@ const Product = ({ product, categories, collections, slug }) => {
     const productTitle = `${title} - ${titleExtended}`
     const productPrice = amount ? `${price} SEK / ${amount}` : `${price} SEK`
     const productUrl = `${SITE_URL}/produkt/${slug}`
+    const productDescription =
+        body?.map((section) => section.text).join(' ') ||
+        'Handgjort smycke i 925 sterling silver.'
+    // jpg instead of webp, not all apps can show webp images when the page is shared
+    const shareImage = `${imageUrls[0]}/${originalFilename[0]}?w=1200&fm=jpg`
+    const schemaImages = imageUrls.map(
+        (imageUrl, index) => `${imageUrl}/${originalFilename[index]}?w=1200`
+    )
 
     return (
         <Wrapper>
@@ -255,13 +264,14 @@ const Product = ({ product, categories, collections, slug }) => {
                 />
                 <meta
                     property="og:description"
-                    content="Handgjorda silversmycken från NJS 925."
+                    content={
+                        body?.[0]?.text ||
+                        'Handgjorda silversmycken från NJS 925.'
+                    }
                     key="og:description"
                 />
-                <meta
-                    property="og:image"
-                    content={`${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`}
-                />
+                <meta property="og:image" content={shareImage} />
+                <meta property="og:image:alt" content={altText(0)} />
                 <meta property="og:type" content="product" key="og:type" />
             </Head>
             {/* 4. JSON-LD - DETTA ÄR NYCKELN FÖR BILDER & PRIS I SÖKRESULTATET */}
@@ -272,9 +282,9 @@ const Product = ({ product, categories, collections, slug }) => {
                         {
                             '@type': 'Product',
                             name: titleForGoogleSearch,
-                            image: `${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`,
-                            description:
-                                'Handgjort smycke i 925 sterling silver.',
+                            image: schemaImages,
+                            description: productDescription,
+                            material: '925 sterling silver',
                             sku: slug,
                             brand: {
                                 '@type': 'Brand',
@@ -290,6 +300,12 @@ const Product = ({ product, categories, collections, slug }) => {
                                     : 'https://schema.org/InStock',
                                 itemCondition:
                                     'https://schema.org/NewCondition',
+                                shippingDetails: shippingDetailsSchema,
+                                seller: {
+                                    '@type': 'Organization',
+                                    name: SITE_NAME,
+                                    url: SITE_URL,
+                                },
                             },
                         },
                         // Hem > Ringar > Silverring - Sunset, shown instead of the url in google search results

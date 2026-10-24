@@ -26,14 +26,18 @@ const Intro = styled.div`
     max-width: 800px;
     padding: 0px 20px;
     text-align: center;
+    /* the h1 is for google and screen readers only, it is hidden visually but still part of the page
+       (display: none would remove it completely, then google would ignore it) */
     h1 {
-        letter-spacing: 2px;
-        font-weight: 100;
-        font-size: 22px;
-        margin: 12px 0 0;
-        @media (max-width: 700px) {
-            font-size: 16px;
-        }
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
     p {
         margin: 8px 0 0;

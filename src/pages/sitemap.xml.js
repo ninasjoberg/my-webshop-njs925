@@ -1,4 +1,4 @@
-import client from '../cmsApi'
+import client from '../lib/cmsApi'
 
 // 2. Funktion som bygger själva XML-strängen
 function generateSiteMap(products) {

@@ -1,4 +1,4 @@
-import client from '../cmsApi'
+import client from '../lib/cmsApi'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Header from '../components/Header'

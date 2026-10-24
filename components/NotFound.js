@@ -5,7 +5,7 @@ import { Wrapper, MainWrapper } from './styles/CommonStyles'
 
 const NotFoundLink = styled.p`
     cursor: pointer;
-    :hover {
+    &:hover {
         color: #4da7bc;
         opacity: 0.7;
     }
@@ -18,7 +18,7 @@ const NotFound = () => {
             <Wrapper>
                 <MainWrapper>
                     <h1>Denna produkt finns tyvärr inte.</h1>
-                    <Link href={'/'} passHref>
+                    <Link href={'/'}>
                         <NotFoundLink>
                             se alla produkter från njs925.se
                         </NotFoundLink>

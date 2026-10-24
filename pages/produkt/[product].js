@@ -12,6 +12,7 @@ import Categories from '../../components/Categories'
 import ActionButton from '../../components/ActionButton.js'
 import Footer from '../../components/Footer'
 import Dropdown from '../../components/Dropdown'
+import { squareImageStyle } from '../../components/styles/CommonStyles'
 
 const Wrapper = styled.div`
     display: flex;
@@ -46,7 +47,7 @@ const MainWrapper = styled.main`
 
 const NotFoundLink = styled.p`
     cursor: pointer;
-    :hover {
+    &:hover {
         color: #4da7bc;
         opacity: 0.7;
     }
@@ -182,7 +183,7 @@ const Product = ({ product, categories, collections, slug }) => {
                 <Wrapper>
                     <MainWrapper>
                         <h1>Denna produkt finns tyvärr inte.</h1>
-                        <Link href={'/'} passHref>
+                        <Link href={'/'}>
                             <NotFoundLink>
                                 se alla produkter från njs925.se
                             </NotFoundLink>
@@ -225,16 +226,16 @@ const Product = ({ product, categories, collections, slug }) => {
                     <Image
                         src={urlWithFileName}
                         alt={images[index].alt || 'produktbild silversmycke'}
-                        width="100%"
-                        height="100%"
-                        layout="responsive"
+                        width={96}
+                        height={96}
+                        style={{ ...squareImageStyle, width: '100%' }}
                     />
                 </SmallImgWrapper>
             )
         })
 
         const texArray = body?.map((section) => {
-            return <p key={section[0]._key}>{section[0].text}</p>
+            return <p key={section._key}>{section.text}</p>
         })
 
         const productTitle = `${title} - ${titleExtended}`
@@ -315,6 +316,8 @@ const Product = ({ product, categories, collections, slug }) => {
                                     alt={bigImage.alt}
                                     width={600}
                                     height={600}
+                                    loading="eager"
+                                    style={squareImageStyle}
                                 />
                             )}
                         </BigImageWrapper>
@@ -383,7 +386,7 @@ export const getStaticProps = async ({ params }) => {
             props: { product: {}, categories: {} },
         }
     } else {
-        const productQuery = `*[_type == 'product' && slug.current == '${params.product}'][0] {
+        const productQuery = `*[_type == 'product' && slug.current == $slug][0] {
             _id,
             title,
             titleExtended,
@@ -397,7 +400,7 @@ export const getStaticProps = async ({ params }) => {
             outOfStock,
             "imageUrls": images[].asset->url,
             "originalFilename": images[].asset->originalFilename,
-            "body": body.se[].children[],
+            "body": body.se[]{ "_key": children[0]._key, "text": children[0].text },
         }`
 
         const slug = params.product
@@ -425,7 +428,8 @@ export const getStaticProps = async ({ params }) => {
 
         return {
             props: {
-                product,
+                // sanity returns null for a slug that does not exist
+                product: product || {},
                 categories,
                 collections,
                 slug,

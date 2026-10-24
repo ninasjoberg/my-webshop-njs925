@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styled from 'styled-components'
 import replaceSwedishLetters from '../utils/replaceSwedishLetters'
+import { squareImageStyle } from './styles/CommonStyles'
 
 const Wrapper = styled.ul`
     display: flex;
@@ -33,7 +34,7 @@ const ProductWrapper = styled.li`
     }
 `
 
-const DispalyProduct = styled.a`
+const DispalyProduct = styled(Link)`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -76,34 +77,36 @@ const ProductLink = ({
     hidden,
     outOfStock,
     selectedCategory,
+    eager,
 }) => {
     return (
         <ProductWrapper hidden={hidden}>
-            <Link
+            <DispalyProduct
                 href={`/produkt/${slug}/?category=${selectedCategory}`}
-                passHref
             >
-                <DispalyProduct>
-                    <Image
-                        src={`${img}?fm=webp`}
-                        alt={alt || 'produktbild silversmycke'}
-                        width={400}
-                        height={400}
-                    />
-                    {outOfStock && (
-                        <OutOfStockDiv>Tillfälligt slut</OutOfStockDiv>
-                    )}
-                    <InfoWrapper>
-                        <h2>{title}</h2>
-                        <p>{productPrice}</p>
-                    </InfoWrapper>
-                </DispalyProduct>
-            </Link>
+                <Image
+                    src={`${img}?fm=webp`}
+                    alt={alt || 'produktbild silversmycke'}
+                    width={400}
+                    height={400}
+                    loading={eager ? 'eager' : 'lazy'}
+                    style={squareImageStyle}
+                />
+                {outOfStock && <OutOfStockDiv>Tillfälligt slut</OutOfStockDiv>}
+                <InfoWrapper>
+                    <h2>{title}</h2>
+                    <p>{productPrice}</p>
+                </InfoWrapper>
+            </DispalyProduct>
         </ProductWrapper>
     )
 }
 
+// the first row on desktop and the first two rows on mobile are above the fold
+const EAGER_PRODUCTS = 4
+
 const Products = ({ products, selectedCategory }) => {
+    let visibleCount = 0
     const productList = products.map((product) => {
         const {
             amount,
@@ -129,6 +132,7 @@ const Products = ({ products, selectedCategory }) => {
         const showProuct =
             category === selectedCategory || collection === selectedCategory
         const isHidden = selectedCategory === 'visa alla' ? false : !showProuct
+        const eager = !isHidden && visibleCount++ < EAGER_PRODUCTS
         return (
             <ProductLink
                 key={_id}
@@ -141,6 +145,7 @@ const Products = ({ products, selectedCategory }) => {
                 productPrice={productPrice}
                 outOfStock={outOfStock || false}
                 selectedCategory={selectedCategory}
+                eager={eager}
             />
         )
     })

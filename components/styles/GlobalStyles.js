@@ -4,7 +4,7 @@ const GlobalStyle = createGlobalStyle`
 	* {
 		box-sizing: border-box;
 		-webkit-tap-highlight-color: transparent;
-		:focus {
+		&:focus {
 			-webkit-tap-highlight-color: transparent;
 			outline: none;
 			-ms-touch-action: manipulation;
@@ -51,6 +51,12 @@ const GlobalStyle = createGlobalStyle`
 			text-decoration: none;
 			list-style-type: none;
 			padding: 0;
+		}
+		img {
+			/* keep the scale-down behaviour of the old next/image */
+			max-width: 100%;
+			height: auto;
+			vertical-align: middle;
 		}
 		button {
 			font-family: helvetica;

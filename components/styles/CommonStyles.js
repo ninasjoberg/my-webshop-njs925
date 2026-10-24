@@ -29,3 +29,6 @@ export const MainWrapper = styled.main`
         }
     }
 `
+
+// product photos are not always exactly square, crop them instead of stretching
+export const squareImageStyle = { aspectRatio: '1', objectFit: 'cover' }

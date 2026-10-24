@@ -75,6 +75,7 @@ const Dropdown = ({ onChange, selctedValue, variants }) => {
                     const selected = title === selctedValue
                     return (
                         <Item
+                            key={title}
                             selected={selected}
                             onClick={() => {
                                 onChange(title), setIsActive(!isActive)

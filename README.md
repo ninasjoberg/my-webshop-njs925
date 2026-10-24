@@ -14,17 +14,18 @@ see also https://github.com/ninasjoberg/my-webshop-cms for Sanity schemas.
 
 ## Languages and techniques:
 
--   Next.js (frontend)
--   Express (server)
+-   Next.js (frontend + api route)
 -   Sanity.io (cms/backend)
 -   Redux toolkit (state handler)
 -   Styled-components (styling)
--   Sendgrid (email)
+-   Nodemailer (email)
 
 -   Heroku (hosting)
 -   CloudFlare (enable https)
 
 ## Get started:
+
+Requires Node 24 (see `.nvmrc`).
 
 `nvm use`
 

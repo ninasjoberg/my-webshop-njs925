@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Image from 'next/image'
 import styled from 'styled-components'
-import 'isomorphic-fetch'
 import AddressForm from './AddressForm.js'
 import ActionButton from '../ActionButton.js'
+import { squareImageStyle } from '../styles/CommonStyles'
 import { removeFromCart, clearCart } from '../../redux/cartSlice'
 
 const CartWrapper = styled.div`
@@ -51,7 +51,7 @@ const CloseButton = styled.button`
     cursor: pointer;
     padding: 0;
     background-color: white;
-    :hover {
+    &:hover {
         opacity: 0.4;
     }
     span {
@@ -83,7 +83,7 @@ const RemoveButton = styled.button`
     span {
         color: #000;
     }
-    :hover {
+    &:hover {
         opacity: 0.4;
     }
     @media (min-width: 1310px) {
@@ -205,7 +205,7 @@ const CartModal = ({ onCartClose }) => {
             priceTotal,
         }
 
-        fetch('/api/address', {
+        fetch('/api/mail', {
             method: 'post',
             headers: {
                 Accept: 'application/json, text/plain, */*',
@@ -231,8 +231,9 @@ const CartModal = ({ onCartClose }) => {
                             <Image
                                 src={`${item.images[0]}?fm=webp`}
                                 alt="product picture"
-                                height="60px"
-                                width="60px"
+                                height={60}
+                                width={60}
+                                style={squareImageStyle}
                             />
                             <ItemTextDiv>
                                 <ItemTitle>{item.title}</ItemTitle>

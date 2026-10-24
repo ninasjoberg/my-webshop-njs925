@@ -15,10 +15,10 @@ const Button = styled.button`
     height: 40px;
     border-radius: 25px;
     margin-top: 20px;
-    :hover {
+    &:hover {
         background-color: #257385;
     }
-    :active {
+    &:active {
         opacity: 0.4;
     }
     @media (min-width: 1310px) {

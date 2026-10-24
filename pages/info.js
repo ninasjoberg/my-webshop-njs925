@@ -53,7 +53,7 @@ const Info = ({ pageInfo }) => {
 
         const textArray = section.body
             ? section.body.map((section) => {
-                  return <p key={section[0]._key}>{section[0].text}</p>
+                  return <p key={section._key}>{section.text}</p>
               })
             : ''
 
@@ -61,6 +61,7 @@ const Info = ({ pageInfo }) => {
             case 'Tillverkning':
                 return (
                     <ProductionSection
+                        key={section.title}
                         text={textArray}
                         images={imageArray}
                         title={section.title}
@@ -70,6 +71,7 @@ const Info = ({ pageInfo }) => {
             case 'Webbutveckling -  bygget av denna webshop':
                 return (
                     <WebDevSection
+                        key={section.title}
                         text={textArray}
                         images={imageArray}
                         title={section.title}
@@ -79,6 +81,7 @@ const Info = ({ pageInfo }) => {
             case 'Skötselråd':
                 return (
                     <ProductCareSection
+                        key={section.title}
                         text={textArray}
                         title={section.title}
                     />
@@ -113,7 +116,7 @@ export const getStaticProps = async () => {
 		order,
 		images,
 		"imageUrls": images[].asset->url,
-		"body": body.se[].children[],
+		"body": body.se[]{ "_key": children[0]._key, "text": children[0].text },
 	}`
     const pageInfo = await client.fetch(pageQuery)
     return {

@@ -1,0 +1,108 @@
+import nodemailer from 'nodemailer'
+
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        res.setHeader('Allow', 'POST')
+        return res.status(405).end()
+    }
+
+    const { name, street, zipcode, city, email } = req.body.userInfo
+
+    try {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'bellpepperstore@gmail.com',
+                pass: process.env.GMAIL_APP_PASS,
+            },
+        })
+
+        const orderHTML = req.body.order
+            .map(({ title, images, price, quantity, variant, size }) => {
+                return `
+            <table style="margin-bottom: 20px; width: 100%">
+                <tr>
+                    <td style="width: 25%; padding-right: 4%;">
+                        <img width="100%" src="${images[0]}" >
+                    </td>
+                    <td>
+                        <table style="width:100%;">
+                            <tr>
+                                <td><strong>Produkt</td>
+                                <td style="text-align:end;">${title}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Variant</td>
+                                <td style="text-align:end;">${
+                                    variant || '-'
+                                }</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Storlek</td>
+                                <td style="text-align:end;">${size || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Antal</strong></td>
+                                <td style="text-align:end;">
+                                    <strong>${quantity} st</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pris</strong></td>
+                                <td style="text-align:end;">${price} kr/st</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        `
+            })
+            .join('')
+
+        const mailOptions = {
+            to: 'info@njs925.se',
+            from: 'Order <info@njs925.se>',
+            subject: 'Order NJS 925',
+            html: `
+        <div style="margin: 8%; max-width: 600px;">
+            <h2>Ny beställning från:</h2>
+            <div>
+                <br />
+                <strong>${name}</strong>
+                <br />
+                <strong>${street}</strong>
+                <br />
+                <strong>${zipcode}</strong> <strong>${city}</strong>
+                <br />
+                <strong>${email}</strong>
+            </div>
+            <br />
+            <h2>Order:</h2>
+            <div style="background:#f7f7f7; padding: 4%;">
+                ${orderHTML}
+                <h4 style="margin-bottom: 0px; text-align: end">Totalt: ${req.body.priceTotal} kr</h4>
+            </div>
+            <br />
+            <table>
+                <tr>
+                    <th style="vertical-align: top;">Meddelande:</th>
+                    <td>${req.body.message}</td>
+                </tr>
+            </table>
+        </div>
+        `,
+        }
+
+        await transporter.sendMail(mailOptions)
+
+        res.status(200).json({
+            success: true,
+            message: 'success',
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to send email',
+        })
+    }
+}

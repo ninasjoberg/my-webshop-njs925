@@ -29,7 +29,7 @@ const about = ({ pageInfo }) => {
     })
 
     const texArray = body.map((section) => {
-        return <p key={section[0]._key}>{section[0].text}</p>
+        return <p key={section._key}>{section.text}</p>
     })
 
     return (
@@ -56,7 +56,7 @@ const about = ({ pageInfo }) => {
 // This function gets called at build time
 export const getStaticProps = async () => {
     const pageQuery = `*[_type == 'page' && title == 'About'] {
-		"body": body.se[].children[],
+		"body": body.se[]{ "_key": children[0]._key, "text": children[0].text },
 		"imageUrls": images[].asset->url,
 	}`
     const pageInfo = await client.fetch(pageQuery)

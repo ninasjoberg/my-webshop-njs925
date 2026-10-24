@@ -15,6 +15,7 @@ const ProductionSection = ({ title, text, images }) => {
                     alt={'bild på tillverkning av silversmycke'}
                     width={700}
                     height={425}
+                    loading="eager"
                 ></Image>
             </ImageDiv>
             <TextWrapper fullscreenWidth="50%">

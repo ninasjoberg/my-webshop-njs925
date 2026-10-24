@@ -81,14 +81,14 @@ const CartAmount = styled.p`
     }
 `
 
-const LinkStyle = styled.a`
+const LinkStyle = styled(Link)`
     margin: 6px;
     font-weight: 100;
     color: #fff;
     font-size: 16px;
     letter-spacing: 2px;
-    ${({ active }) =>
-        active &&
+    ${({ $active }) =>
+        $active &&
         `
 		color: #4da7bc;
 	`}
@@ -179,28 +179,25 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
         <HeaderWrapper>
             <Navigation>
                 <LinkWrapper>
-                    <Link href="/" passHref>
-                        <LinkStyle
-                            active={
-                                pathname === '/' ||
-                                pathname === '/produkt' ||
-                                pathname.includes('produkt')
-                            }
-                        >
-                            PRODUKTER
-                        </LinkStyle>
-                    </Link>
-                    <Link href="/info" passHref>
-                        <LinkStyle active={asPath === '/info'}>INFO</LinkStyle>
-                    </Link>
-                    <Link href="/om" passHref>
-                        <LinkStyle active={asPath === '/om'}>OM</LinkStyle>
-                    </Link>
-                    <Link href="/villkor" passHref>
-                        <LinkStyle active={asPath === '/villkor'}>
-                            VILLKOR
-                        </LinkStyle>
-                    </Link>
+                    <LinkStyle
+                        href="/"
+                        $active={
+                            pathname === '/' ||
+                            pathname === '/produkt' ||
+                            pathname.includes('produkt')
+                        }
+                    >
+                        PRODUKTER
+                    </LinkStyle>
+                    <LinkStyle href="/info" $active={asPath === '/info'}>
+                        INFO
+                    </LinkStyle>
+                    <LinkStyle href="/om" $active={asPath === '/om'}>
+                        OM
+                    </LinkStyle>
+                    <LinkStyle href="/villkor" $active={asPath === '/villkor'}>
+                        VILLKOR
+                    </LinkStyle>
                 </LinkWrapper>
                 <Cart onClick={onCartClick}>
                     <CartText>VARUKORG</CartText>
@@ -210,12 +207,13 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
             {showCart && <CartModal onCartClose={onCartClose} />}
             <div>
                 <LogoWrapper>
-                    <Link aria-label="Gå till startsidan" href="/" passHref>
+                    <Link aria-label="Gå till startsidan" href="/">
                         <Image
                             src="/logga_njs925.jpg"
                             alt="Illustrerad logga med namn - NJS 925"
-                            width="200px"
-                            height="125px"
+                            width={200}
+                            height={129}
+                            loading="eager"
                         />
                     </Link>
                 </LogoWrapper>

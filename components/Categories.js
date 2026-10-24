@@ -91,10 +91,8 @@ const Categories = ({ categories, selectedCategory, collections }) => {
                         selectedCategory ===
                         replaceSwedishLetters(category.title)
                     return (
-                        <LinkDiv selected={selected} key={category._id}>
-                            <Link href={url} passHref>
-                                {category.title}
-                            </Link>
+                        <LinkDiv selected={selected} key={category.title}>
+                            <Link href={url}>{category.title}</Link>
                         </LinkDiv>
                     )
                 })}
@@ -108,10 +106,8 @@ const Categories = ({ categories, selectedCategory, collections }) => {
                         selectedCategory ===
                         replaceSwedishLetters(collection.title)
                     return (
-                        <LinkDiv selected={selected} key={collection._id}>
-                            <Link href={url} passHref>
-                                {collection.title}
-                            </Link>
+                        <LinkDiv selected={selected} key={collection.title}>
+                            <Link href={url}>{collection.title}</Link>
                         </LinkDiv>
                     )
                 })}

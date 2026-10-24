@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://njs925.se/sitemap.xml

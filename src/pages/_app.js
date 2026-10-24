@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Script from 'next/script'
 import { Provider } from 'react-redux'
 import { StyleSheetManager } from 'styled-components'
@@ -18,6 +19,24 @@ function MyApp({ Component, pageProps }) {
     return (
         <StyleSheetManager shouldForwardProp={shouldForwardProp}>
             <GlobalStyle />
+            {/* defaults for all pages, a page can override them by using a meta tag with the same key */}
+            <Head>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
+                <meta
+                    property="og:title"
+                    content="NJS 925: silversmycken"
+                    key="og:title"
+                />
+                <meta property="og:type" content="website" key="og:type" />
+                <meta
+                    property="og:description"
+                    content="Handgjorda smycken i 925 sterling silver, tillverkade i liten skala. Kvinnosymboler, geometriska former och stilren design."
+                    key="og:description"
+                />
+            </Head>
             <Script
                 src="https://cloud.umami.is/script.js"
                 data-website-id="0fbb9a6c-8701-4be2-bf0b-31ad0e4ca402"

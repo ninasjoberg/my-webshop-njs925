@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import Header from './Header'
+import Footer from './Footer'
 import { Wrapper, MainWrapper } from './styles/CommonStyles'
 
 const NotFoundLink = styled.p`
@@ -17,7 +18,7 @@ const NotFound = () => {
             <Header />
             <Wrapper>
                 <MainWrapper>
-                    <h1>Denna produkt finns tyvärr inte.</h1>
+                    <h1>Denna sida finns tyvärr inte.</h1>
                     <Link href={'/'}>
                         <NotFoundLink>
                             se alla produkter från njs925.se

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Head from 'next/head'
-import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
@@ -42,14 +41,6 @@ const MainWrapper = styled.main`
             margin-bottom: 6px;
             letter-spacing: 0.8px;
         }
-    }
-`
-
-const NotFoundLink = styled.p`
-    cursor: pointer;
-    &:hover {
-        color: #4da7bc;
-        opacity: 0.7;
     }
 `
 
@@ -181,187 +172,173 @@ const Product = ({ product, categories, collections, slug }) => {
         setSelectedSize(variant)
     }
 
-    if (Object.keys(product).length === 0 && product.constructor === Object) {
+    const {
+        imageUrls,
+        title,
+        titleExtended,
+        price,
+        amount,
+        body,
+        variants,
+        images,
+        size,
+        titleForGoogleSearch,
+        outOfStock,
+        originalFilename,
+    } = product
+
+    const showVariants = variants?.length > 0
+    const showSizes = size?.length > 0
+
+    const imageArray = imageUrls?.map((imageUrl, index) => {
+        const active = bigImage?.src?.includes(imageUrl)
+        const urlWithFileName = `${imageUrl}/${originalFilename[index]}/?fm=webp`
         return (
-            <>
-                <Header />
-                <Wrapper>
-                    <MainWrapper>
-                        <h1>Denna produkt finns tyvärr inte.</h1>
-                        <Link href={'/'}>
-                            <NotFoundLink>
-                                se alla produkter från njs925.se
-                            </NotFoundLink>
-                        </Link>
-                    </MainWrapper>
-                </Wrapper>
-                <Footer />
-            </>
-        )
-    } else {
-        const {
-            imageUrls,
-            title,
-            titleExtended,
-            price,
-            amount,
-            body,
-            variants,
-            images,
-            size,
-            titleForGoogleSearch,
-            outOfStock,
-            originalFilename,
-        } = product
-
-        const showVariants = variants?.length > 0
-        const showSizes = size?.length > 0
-
-        const imageArray = imageUrls?.map((imageUrl, index) => {
-            const active = bigImage?.src?.includes(imageUrl)
-            const urlWithFileName = `${imageUrl}/${originalFilename[index]}/?fm=webp`
-            return (
-                <SmallImgWrapper
-                    key={index}
-                    active={active}
-                    onClick={() =>
-                        selectImg(urlWithFileName, images[index].alt, index)
-                    }
-                >
-                    <Image
-                        src={urlWithFileName}
-                        alt={images[index].alt || 'produktbild silversmycke'}
-                        width={96}
-                        height={96}
-                        style={{ ...squareImageStyle, width: '100%' }}
-                    />
-                </SmallImgWrapper>
-            )
-        })
-
-        const texArray = body?.map((section) => {
-            return <p key={section._key}>{section.text}</p>
-        })
-
-        const productTitle = `${title} - ${titleExtended}`
-        const productPrice = amount
-            ? `${price} SEK / ${amount}`
-            : `${price} SEK`
-
-        return (
-            <Wrapper>
-                <Head>
-                    {/* 1. Unik titel för varje produkt */}
-                    <title>{`${titleForGoogleSearch} | Handgjorda Silversmycken | NJS 925`}</title>
-
-                    {/* 2. Unik beskrivning – undvik samma text på alla 105 sidor! */}
-                    <meta
-                        name="description"
-                        content={`Köp ${titleForGoogleSearch.toLowerCase()}. Handgjort i 925 sterling silver i min egen verkstad. Unik design från NJS 925.`}
-                    />
-
-                    <link
-                        rel="canonical"
-                        href={`https://njs925.se/produkt/${slug}`}
-                    />
-
-                    {/* 3. Open Graph - Gör att bilden ser snygg ut när man delar på FB/Instagram */}
-                    <meta property="og:title" content={titleForGoogleSearch} />
-                    <meta
-                        property="og:description"
-                        content="Handgjorda silversmycken från NJS 925."
-                    />
-                    <meta
-                        property="og:image"
-                        content={`${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`}
-                    />
-                    <meta property="og:type" content="product" />
-
-                    {/* 4. JSON-LD - DETTA ÄR NYCKELN FÖR BILDER & PRIS I SÖKRESULTATET */}
-                    <script
-                        type="application/ld+json"
-                        dangerouslySetInnerHTML={{
-                            __html: JSON.stringify({
-                                '@context': 'https://schema.org/',
-                                '@type': 'Product',
-                                name: titleForGoogleSearch,
-                                image: `${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`,
-                                description:
-                                    'Handgjort smycke i 925 sterling silver.',
-                                sku: slug,
-                                brand: {
-                                    '@type': 'Brand',
-                                    name: 'NJS 925',
-                                },
-                                offers: {
-                                    '@type': 'Offer',
-                                    url: `https://njs925.se/produkt/${slug}`,
-                                    priceCurrency: 'SEK',
-                                    price: price,
-                                    availability: 'https://schema.org/InStock',
-                                    itemCondition:
-                                        'https://schema.org/NewCondition',
-                                },
-                            }),
-                        }}
-                    />
-                </Head>
-                <Header />
-                <Categories
-                    categories={categories}
-                    collections={collections}
-                    selectedCategory={router.query.category?.toLowerCase()}
+            <SmallImgWrapper
+                key={index}
+                active={active}
+                onClick={() =>
+                    selectImg(urlWithFileName, images[index].alt, index)
+                }
+            >
+                <Image
+                    src={urlWithFileName}
+                    alt={images[index].alt || 'produktbild silversmycke'}
+                    width={96}
+                    height={96}
+                    style={{ ...squareImageStyle, width: '100%' }}
                 />
-                <MainWrapper>
-                    <LeftWrapper>
-                        <BigImageWrapper>
-                            {bigImage?.src && (
-                                <Image
-                                    src={bigImage.src}
-                                    alt={bigImage.alt}
-                                    width={600}
-                                    height={600}
-                                    loading="eager"
-                                    style={squareImageStyle}
-                                />
-                            )}
-                        </BigImageWrapper>
-                        <ImagesWrapper>{imageArray}</ImagesWrapper>
-                    </LeftWrapper>
-                    <RightWrapper>
-                        <h1>{productTitle}</h1>
-                        {texArray}
-                        <PriceText>{productPrice}</PriceText>
-                        {showVariants && (
-                            <Dropdown
-                                selctedValue={selectedVariant}
-                                variants={variants}
-                                onChange={selectVariant}
-                            />
-                        )}
-                        {showSizes && (
-                            <Dropdown
-                                selctedValue={selectedSize}
-                                variants={size}
-                                onChange={selectSize}
-                            />
-                        )}
-                        {outOfStock ? (
-                            <p>Tillfälligt slut i lager.</p>
-                        ) : (
-                            <ActionButton
-                                buttonText="Lägg i varukorgen"
-                                onClick={() => {
-                                    addProductToCart(product)
-                                }}
-                            />
-                        )}
-                    </RightWrapper>
-                </MainWrapper>
-                <Footer />
-            </Wrapper>
+            </SmallImgWrapper>
         )
-    }
+    })
+
+    const texArray = body?.map((section) => {
+        return <p key={section._key}>{section.text}</p>
+    })
+
+    const productTitle = `${title} - ${titleExtended}`
+    const productPrice = amount ? `${price} SEK / ${amount}` : `${price} SEK`
+
+    return (
+        <Wrapper>
+            <Head>
+                {/* 1. Unik titel för varje produkt */}
+                <title>{`${titleForGoogleSearch} | Handgjorda Silversmycken | NJS 925`}</title>
+
+                {/* 2. Unik beskrivning – undvik samma text på alla 105 sidor! */}
+                <meta
+                    name="description"
+                    content={`Köp ${titleForGoogleSearch.toLowerCase()}. Handgjort i 925 sterling silver i min egen verkstad. Unik design från NJS 925.`}
+                />
+
+                <link
+                    rel="canonical"
+                    href={`https://njs925.se/produkt/${slug}`}
+                />
+
+                {/* 3. Open Graph - Gör att bilden ser snygg ut när man delar på FB/Instagram */}
+                <meta
+                    property="og:title"
+                    content={titleForGoogleSearch}
+                    key="og:title"
+                />
+                <meta
+                    property="og:description"
+                    content="Handgjorda silversmycken från NJS 925."
+                    key="og:description"
+                />
+                <meta
+                    property="og:image"
+                    content={`${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`}
+                />
+                <meta property="og:type" content="product" key="og:type" />
+
+                {/* 4. JSON-LD - DETTA ÄR NYCKELN FÖR BILDER & PRIS I SÖKRESULTATET */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org/',
+                            '@type': 'Product',
+                            name: titleForGoogleSearch,
+                            image: `${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`,
+                            description:
+                                'Handgjort smycke i 925 sterling silver.',
+                            sku: slug,
+                            brand: {
+                                '@type': 'Brand',
+                                name: 'NJS 925',
+                            },
+                            offers: {
+                                '@type': 'Offer',
+                                url: `https://njs925.se/produkt/${slug}`,
+                                priceCurrency: 'SEK',
+                                price: price,
+                                availability: outOfStock
+                                    ? 'https://schema.org/OutOfStock'
+                                    : 'https://schema.org/InStock',
+                                itemCondition:
+                                    'https://schema.org/NewCondition',
+                            },
+                        }),
+                    }}
+                />
+            </Head>
+            <Header />
+            <Categories
+                categories={categories}
+                collections={collections}
+                selectedCategory={router.query.category?.toLowerCase()}
+            />
+            <MainWrapper>
+                <LeftWrapper>
+                    <BigImageWrapper>
+                        {bigImage?.src && (
+                            <Image
+                                src={bigImage.src}
+                                alt={bigImage.alt}
+                                width={600}
+                                height={600}
+                                loading="eager"
+                                style={squareImageStyle}
+                            />
+                        )}
+                    </BigImageWrapper>
+                    <ImagesWrapper>{imageArray}</ImagesWrapper>
+                </LeftWrapper>
+                <RightWrapper>
+                    <h1>{productTitle}</h1>
+                    {texArray}
+                    <PriceText>{productPrice}</PriceText>
+                    {showVariants && (
+                        <Dropdown
+                            selctedValue={selectedVariant}
+                            variants={variants}
+                            onChange={selectVariant}
+                        />
+                    )}
+                    {showSizes && (
+                        <Dropdown
+                            selctedValue={selectedSize}
+                            variants={size}
+                            onChange={selectSize}
+                        />
+                    )}
+                    {outOfStock ? (
+                        <p>Tillfälligt slut i lager.</p>
+                    ) : (
+                        <ActionButton
+                            buttonText="Lägg i varukorgen"
+                            onClick={() => {
+                                addProductToCart(product)
+                            }}
+                        />
+                    )}
+                </RightWrapper>
+            </MainWrapper>
+            <Footer />
+        </Wrapper>
+    )
 }
 
 // from: https://nextjs.org/docs/basic-features/data-fetching
@@ -386,12 +363,11 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
     // google search console searches for page produkt/[produkt] which gives params === undefined and generates a 500
     // this is done to avoid that...
-    if (Object.keys(params).length === 0 && params.constructor === Object) {
-        return {
-            props: { product: {}, categories: {} },
-        }
-    } else {
-        const productQuery = `*[_type == 'product' && slug.current == $slug][0] {
+    if (!params?.product) {
+        return { notFound: true }
+    }
+
+    const productQuery = `*[_type == 'product' && slug.current == $slug][0] {
             _id,
             title,
             titleExtended,
@@ -408,42 +384,46 @@ export const getStaticProps = async ({ params }) => {
             "body": body.se[]{ "_key": children[0]._key, "text": children[0].text },
         }`
 
-        const slug = params.product
+    const slug = params.product
 
-        const product = await client.fetch(productQuery, {
-            slug,
-        })
+    const product = await client.fetch(productQuery, {
+        slug,
+    })
 
-        const categoryQuery = `*[_type == 'category'] {
+    // sanity returns null for a slug that does not exist, give a real 404 instead of a page with status 200
+    // revalidate so the page shows up if the product is added in the cms later
+    if (!product) {
+        return { notFound: true, revalidate: 30 }
+    }
+
+    const categoryQuery = `*[_type == 'category'] {
             title,
             slug,
         }`
-        const categories = await client.fetch(categoryQuery, {
-            slug,
-        })
-        categories.unshift({ title: 'visa alla' })
+    const categories = await client.fetch(categoryQuery, {
+        slug,
+    })
+    categories.unshift({ title: 'visa alla' })
 
-        const collectionQuery = `*[_type == 'collection'] {
+    const collectionQuery = `*[_type == 'collection'] {
             title,
             slug,
         }`
-        const collections = await client.fetch(collectionQuery, {
-            slug,
-        })
+    const collections = await client.fetch(collectionQuery, {
+        slug,
+    })
 
-        return {
-            props: {
-                // sanity returns null for a slug that does not exist
-                product: product || {},
-                categories,
-                collections,
-                slug,
-            },
-            // Next.js will attempt to re-generate the page:
-            // - When a request comes in - At most once every 30 seconds
-            // (needed to get the page updated when making changes in the cms, without having to rebuild the app)
-            revalidate: 30,
-        }
+    return {
+        props: {
+            product,
+            categories,
+            collections,
+            slug,
+        },
+        // Next.js will attempt to re-generate the page:
+        // - When a request comes in - At most once every 30 seconds
+        // (needed to get the page updated when making changes in the cms, without having to rebuild the app)
+        revalidate: 30,
     }
 }
 

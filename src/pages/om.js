@@ -35,10 +35,15 @@ const about = ({ pageInfo }) => {
     return (
         <Wrapper>
             <Head>
-                <title>NJS 925: silversmycken</title>
+                <title>Om mig - Nina Johanna Sjöberg | NJS 925</title>
                 <meta
                     name="description"
-                    content="Handgjorda smycken i 925 sterling silver, tillverkade i liten skala. Kvinnosymboler, geometriska former och stilren design."
+                    content="Jag heter Nina Johanna Sjöberg och gör alla smycken för hand i 925 sterling silver, med inspiration från naturen, segling, klättring och odling. Läs mer om mig och NJS 925."
+                />
+                <meta
+                    property="og:title"
+                    content="Om mig - Nina Johanna Sjöberg | NJS 925"
+                    key="og:title"
                 />
                 <link rel="canonical" href="https://njs925.se/om" />
             </Head>

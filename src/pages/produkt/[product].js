@@ -2,9 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import client from '../../lib/cmsApi'
+import { categoryQuery, collectionQuery } from '../../lib/queries'
+import {
+    SITE_URL,
+    SITE_NAME,
+    capitalize,
+    breadcrumbSchema,
+} from '../../lib/seo'
+import JsonLd from '../../components/JsonLd'
 import { addCart } from '../../redux/cartSlice'
 import Header from '../../components/Header'
 import Categories from '../../components/Categories'
@@ -123,13 +130,14 @@ const Product = ({ product, categories, collections, slug }) => {
         product.size ? [0]?.title : ''
     )
     const dispatch = useDispatch()
-    const router = useRouter()
 
     useEffect(() => {
         if (product?.imageUrls) {
             setBigImage({
                 src: `${product.imageUrls[0]}/${product.originalFilename[0]}/?fm=webp`,
-                alt: product.images[0].alt,
+                alt:
+                    product.images[0].alt ||
+                    `${product.title} - ${product.titleExtended}, bild 1`,
             })
         }
         if (product?.variants && product.variants.length > 0) {
@@ -185,7 +193,12 @@ const Product = ({ product, categories, collections, slug }) => {
         titleForGoogleSearch,
         outOfStock,
         originalFilename,
+        category,
     } = product
+
+    // fallback for images that are missing an alt text in the cms
+    const altText = (index) =>
+        images[index].alt || `${title} - ${titleExtended}, bild ${index + 1}`
 
     const showVariants = variants?.length > 0
     const showSizes = size?.length > 0
@@ -198,12 +211,12 @@ const Product = ({ product, categories, collections, slug }) => {
                 key={index}
                 active={active}
                 onClick={() =>
-                    selectImg(urlWithFileName, images[index].alt, index)
+                    selectImg(urlWithFileName, altText(index), index)
                 }
             >
                 <Image
                     src={urlWithFileName}
-                    alt={images[index].alt || 'produktbild silversmycke'}
+                    alt={altText(index)}
                     width={96}
                     height={96}
                     style={{ ...squareImageStyle, width: '100%' }}
@@ -218,6 +231,7 @@ const Product = ({ product, categories, collections, slug }) => {
 
     const productTitle = `${title} - ${titleExtended}`
     const productPrice = amount ? `${price} SEK / ${amount}` : `${price} SEK`
+    const productUrl = `${SITE_URL}/produkt/${slug}`
 
     return (
         <Wrapper>
@@ -231,10 +245,7 @@ const Product = ({ product, categories, collections, slug }) => {
                     content={`Köp ${titleForGoogleSearch.toLowerCase()}. Handgjort i 925 sterling silver i min egen verkstad. Unik design från NJS 925.`}
                 />
 
-                <link
-                    rel="canonical"
-                    href={`https://njs925.se/produkt/${slug}`}
-                />
+                <link rel="canonical" href={productUrl} />
 
                 {/* 3. Open Graph - Gör att bilden ser snygg ut när man delar på FB/Instagram */}
                 <meta
@@ -252,13 +263,13 @@ const Product = ({ product, categories, collections, slug }) => {
                     content={`${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`}
                 />
                 <meta property="og:type" content="product" key="og:type" />
-
-                {/* 4. JSON-LD - DETTA ÄR NYCKELN FÖR BILDER & PRIS I SÖKRESULTATET */}
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            '@context': 'https://schema.org/',
+            </Head>
+            {/* 4. JSON-LD - DETTA ÄR NYCKELN FÖR BILDER & PRIS I SÖKRESULTATET */}
+            <JsonLd
+                id="product-schema"
+                data={{
+                    '@graph': [
+                        {
                             '@type': 'Product',
                             name: titleForGoogleSearch,
                             image: `${product.imageUrls[0]}/${originalFilename[0]}/?fm=webp`,
@@ -267,11 +278,11 @@ const Product = ({ product, categories, collections, slug }) => {
                             sku: slug,
                             brand: {
                                 '@type': 'Brand',
-                                name: 'NJS 925',
+                                name: SITE_NAME,
                             },
                             offers: {
                                 '@type': 'Offer',
-                                url: `https://njs925.se/produkt/${slug}`,
+                                url: productUrl,
                                 priceCurrency: 'SEK',
                                 price: price,
                                 availability: outOfStock
@@ -280,15 +291,28 @@ const Product = ({ product, categories, collections, slug }) => {
                                 itemCondition:
                                     'https://schema.org/NewCondition',
                             },
-                        }),
-                    }}
-                />
-            </Head>
+                        },
+                        // Hem > Ringar > Silverring - Sunset, shown instead of the url in google search results
+                        breadcrumbSchema([
+                            { name: 'Hem', url: SITE_URL },
+                            ...(category
+                                ? [
+                                      {
+                                          name: capitalize(category.title),
+                                          url: `${SITE_URL}/kategori/${category.slug}`,
+                                      },
+                                  ]
+                                : []),
+                            { name: titleForGoogleSearch, url: productUrl },
+                        ]),
+                    ],
+                }}
+            />
             <Header />
             <Categories
                 categories={categories}
                 collections={collections}
-                selectedCategory={router.query.category?.toLowerCase()}
+                selectedCategory={category?.slug}
             />
             <MainWrapper>
                 <LeftWrapper>
@@ -382,6 +406,7 @@ export const getStaticProps = async ({ params }) => {
             "imageUrls": images[].asset->url,
             "originalFilename": images[].asset->originalFilename,
             "body": body.se[]{ "_key": children[0]._key, "text": children[0].text },
+            "category": categories[0]->{ title, "slug": slug.current },
         }`
 
     const slug = params.product
@@ -396,22 +421,10 @@ export const getStaticProps = async ({ params }) => {
         return { notFound: true, revalidate: 30 }
     }
 
-    const categoryQuery = `*[_type == 'category'] {
-            title,
-            slug,
-        }`
-    const categories = await client.fetch(categoryQuery, {
-        slug,
-    })
+    const categories = await client.fetch(categoryQuery)
     categories.unshift({ title: 'visa alla' })
 
-    const collectionQuery = `*[_type == 'collection'] {
-            title,
-            slug,
-        }`
-    const collections = await client.fetch(collectionQuery, {
-        slug,
-    })
+    const collections = await client.fetch(collectionQuery)
 
     return {
         props: {

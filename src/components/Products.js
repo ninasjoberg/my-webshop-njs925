@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import styled from 'styled-components'
-import replaceSwedishLetters from '../utils/replaceSwedishLetters'
 import { squareImageStyle } from './styles/CommonStyles'
 
 const Wrapper = styled.ul`
@@ -16,11 +15,6 @@ const Wrapper = styled.ul`
 const ProductWrapper = styled.li`
     margin: 12px;
     background-color: #f1f1f1;
-    ${({ hidden }) =>
-        hidden &&
-        `
-		display: none;
-	`}
     @media (hover: hover) {
         /* hack to not apply hover on mobile devices, because it does not work well with touchscreens */
         &:hover {
@@ -74,19 +68,16 @@ const ProductLink = ({
     alt,
     title,
     productPrice,
-    hidden,
     outOfStock,
-    selectedCategory,
     eager,
 }) => {
     return (
-        <ProductWrapper hidden={hidden}>
-            <DispalyProduct
-                href={`/produkt/${slug}/?category=${selectedCategory}`}
-            >
+        <ProductWrapper>
+            {/* always link to the canonical product url, so google does not find the same page under many urls */}
+            <DispalyProduct href={`/produkt/${slug}`}>
                 <Image
                     src={`${img}?fm=webp`}
-                    alt={alt || 'produktbild silversmycke'}
+                    alt={alt || `${title} - handgjort silversmycke`}
                     width={400}
                     height={400}
                     loading={eager ? 'eager' : 'lazy'}
@@ -105,14 +96,11 @@ const ProductLink = ({
 // the first row on desktop and the first two rows on mobile are above the fold
 const EAGER_PRODUCTS = 4
 
-const Products = ({ products, selectedCategory }) => {
-    let visibleCount = 0
-    const productList = products.map((product) => {
+const Products = ({ products }) => {
+    const productList = products.map((product, index) => {
         const {
             amount,
             price,
-            categories,
-            collections,
             _id,
             title,
             slug,
@@ -123,20 +111,9 @@ const Products = ({ products, selectedCategory }) => {
         const productPrice = amount
             ? `${price} SEK / ${amount}`
             : `${price} SEK`
-        const category = categories?.length
-            ? replaceSwedishLetters(categories[0]).toLowerCase()
-            : null
-        const collection = collections?.length
-            ? replaceSwedishLetters(collections[0]).toLowerCase()
-            : null
-        const showProuct =
-            category === selectedCategory || collection === selectedCategory
-        const isHidden = selectedCategory === 'visa alla' ? false : !showProuct
-        const eager = !isHidden && visibleCount++ < EAGER_PRODUCTS
         return (
             <ProductLink
                 key={_id}
-                hidden={isHidden}
                 id={_id}
                 title={title}
                 slug={slug.current}
@@ -144,8 +121,7 @@ const Products = ({ products, selectedCategory }) => {
                 alt={images[0].alt}
                 productPrice={productPrice}
                 outOfStock={outOfStock || false}
-                selectedCategory={selectedCategory}
-                eager={eager}
+                eager={index < EAGER_PRODUCTS}
             />
         )
     })

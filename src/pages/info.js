@@ -43,7 +43,7 @@ const Info = ({ pageInfo }) => {
                           key={index}
                           id={elementId}
                           src={imageUrl}
-                          alt="product image"
+                          alt={`${section.title} - bild ${index + 1}`}
                           height={100}
                           width={100}
                       />
@@ -95,10 +95,17 @@ const Info = ({ pageInfo }) => {
     return (
         <Wrapper>
             <Head>
-                <title>NJS 925: silversmycken</title>
+                <title>
+                    Tillverkning och skötselråd för silversmycken | NJS 925
+                </title>
                 <meta
                     name="description"
-                    content="Handgjorda smycken i 925 sterling silver, tillverkade i liten skala. Kvinnosymboler, geometriska former och stilren design."
+                    content="Så tillverkas smyckena från NJS 925, skötselråd för silversmycken som mörknat och hur denna webshop är byggd."
+                />
+                <meta
+                    property="og:title"
+                    content="Tillverkning och skötselråd för silversmycken | NJS 925"
+                    key="og:title"
                 />
                 <link rel="canonical" href="https://njs925.se/info" />
             </Head>

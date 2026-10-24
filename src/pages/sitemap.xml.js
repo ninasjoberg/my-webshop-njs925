@@ -1,7 +1,7 @@
 import client from '../lib/cmsApi'
 
 // 2. Funktion som bygger själva XML-strängen
-function generateSiteMap(products) {
+function generateSiteMap(products, categorySlugs) {
     const domain = 'https://njs925.se'
 
     return `<?xml version="1.0" encoding="UTF-8"?>
@@ -25,6 +25,15 @@ function generateSiteMap(products) {
         <loc>https://njs925.se/villkor</loc>
         <lastmod>2026-04-03T18:04:43+00:00</lastmod>
     </url>
+     ${categorySlugs
+         .map(
+             (slug) => `
+       <url>
+           <loc>${domain}/kategori/${slug}</loc>
+       </url>
+     `
+         )
+         .join('')}
      ${products
          .map((product) => {
              const cleanTitle =
@@ -64,7 +73,10 @@ export async function getServerSideProps({ res }) {
         "originalFilename": images[0].asset->originalFilename,
       }
     `)
-        const sitemap = generateSiteMap(products)
+        const categorySlugs = await client.fetch(
+            `*[_type in ['category', 'collection'] && defined(slug.current)][].slug.current`
+        )
+        const sitemap = generateSiteMap(products, categorySlugs)
         res.setHeader('Content-Type', 'text/xml')
         res.setHeader(
             'Cache-Control',

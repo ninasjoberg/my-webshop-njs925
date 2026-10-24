@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
-import replaceSwedishLetters from '../utils/replaceSwedishLetters'
 
 const Wrapper = styled.div`
     display: flex;
@@ -83,13 +82,13 @@ const Categories = ({ categories, selectedCategory, collections }) => {
             <Divider />
             <Navigation>
                 {categories.map((category) => {
-                    const url =
-                        category.title === 'visa alla'
-                            ? '/'
-                            : `/?category=${category.slug.current}`
-                    const selected =
-                        selectedCategory ===
-                        replaceSwedishLetters(category.title)
+                    const isShowAll = category.title === 'visa alla'
+                    const url = isShowAll
+                        ? '/'
+                        : `/kategori/${category.slug.current}`
+                    const selected = isShowAll
+                        ? selectedCategory === 'visa alla'
+                        : selectedCategory === category.slug.current
                     return (
                         <LinkDiv selected={selected} key={category.title}>
                             <Link href={url}>{category.title}</Link>
@@ -101,10 +100,9 @@ const Categories = ({ categories, selectedCategory, collections }) => {
             <SmallDivider />
             <Navigation>
                 {collections.map((collection) => {
-                    const url = `/?category=${collection.slug.current}`
+                    const url = `/kategori/${collection.slug.current}`
                     const selected =
-                        selectedCategory ===
-                        replaceSwedishLetters(collection.title)
+                        selectedCategory === collection.slug.current
                     return (
                         <LinkDiv selected={selected} key={collection.title}>
                             <Link href={url}>{collection.title}</Link>

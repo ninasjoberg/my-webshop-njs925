@@ -22,10 +22,15 @@ const productCare = ({ pageInfo }) => {
     return (
         <Wrapper>
             <Head>
-                <title>NJS 925: silversmycken</title>
+                <title>Köpvillkor, frakt och retur | NJS 925</title>
                 <meta
                     name="description"
-                    content="Handgjorda smycken i 925 sterling silver, tillverkade i liten skala. Kvinnosymboler, geometriska former och stilren design."
+                    content="Köpvillkor för NJS 925: betalning med Swish, fri frakt inom Sverige med Posten, leverans inom 10 arbetsdagar och information om retur."
+                />
+                <meta
+                    property="og:title"
+                    content="Köpvillkor, frakt och retur | NJS 925"
+                    key="og:title"
                 />
                 <link rel="canonical" href="https://njs925.se/villkor" />
             </Head>

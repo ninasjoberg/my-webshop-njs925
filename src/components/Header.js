@@ -143,7 +143,10 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
     const cart = useSelector((state) => state.cart.items)
     const dispatch = useDispatch()
 
-    const isProductPage = pathname.includes('produkt')
+    const isCategoryPage = pathname.startsWith('/kategori')
+    // these pages have their own h1, a page should only have one
+    const pageHasOwnH1 =
+        pathname.includes('produkt') || isCategoryPage || pathname === '/404'
 
     useEffect(() => {
         if (checkLocalStorage) {
@@ -184,7 +187,8 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                         $active={
                             pathname === '/' ||
                             pathname === '/produkt' ||
-                            pathname.includes('produkt')
+                            pathname.includes('produkt') ||
+                            isCategoryPage
                         }
                     >
                         PRODUKTER
@@ -217,7 +221,7 @@ const Header = ({ router: { asPath = '/', pathname } = {} }) => {
                         />
                     </Link>
                 </LogoWrapper>
-                {isProductPage ? (
+                {pageHasOwnH1 ? (
                     <TitleP>
                         Handgjorda smycken i 925 sterling silver. Tillverkade i
                         liten skala, av mig Nina Johanna Sjöberg.

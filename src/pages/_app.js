@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import { Provider } from 'react-redux'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
@@ -17,6 +18,11 @@ function MyApp({ Component, pageProps }) {
     return (
         <StyleSheetManager shouldForwardProp={shouldForwardProp}>
             <GlobalStyle />
+            <Script
+                src="https://cloud.umami.is/script.js"
+                data-website-id="0fbb9a6c-8701-4be2-bf0b-31ad0e4ca402"
+                strategy="afterInteractive"
+            />
             <Provider store={store}>
                 <Component {...pageProps} />
             </Provider>

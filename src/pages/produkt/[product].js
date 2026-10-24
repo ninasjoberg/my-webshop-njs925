@@ -164,8 +164,13 @@ const Product = ({ product, categories, collections, slug }) => {
         dispatch(addCart(productInfo))
     }
 
-    const selectImg = (imgSrc, imgAlt) => {
+    const selectImg = (imgSrc, imgAlt, imgIndex) => {
         setBigImage({ src: imgSrc, alt: imgAlt })
+        // umami is loaded in _app.js, it can be missing if blocked by an ad blocker
+        window.umami?.track(`image-click: ${product.title}`, {
+            product: slug,
+            image: imgIndex + 1,
+        })
     }
 
     const selectVariant = (variant) => {
@@ -220,7 +225,7 @@ const Product = ({ product, categories, collections, slug }) => {
                     key={index}
                     active={active}
                     onClick={() =>
-                        selectImg(urlWithFileName, images[index].alt)
+                        selectImg(urlWithFileName, images[index].alt, index)
                     }
                 >
                     <Image

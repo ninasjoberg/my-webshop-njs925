@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -123,33 +123,26 @@ const PriceText = styled.p`
 `
 
 const Product = ({ product, categories, collections, slug }) => {
-    const [bigImage, setBigImage] = useState('')
+    // start with the first image so the big image is part of the server rendered html,
+    // google uses it as the thumbnail next to the search result
+    const [bigImage, setBigImage] = useState(
+        product.imageUrls?.length
+            ? {
+                  src: `${product.imageUrls[0]}/${product.originalFilename[0]}/?fm=webp`,
+                  alt:
+                      product.images[0].alt ||
+                      `${product.title} - ${product.titleExtended}, bild 1`,
+              }
+            : null
+    )
+    //sanity gives you an empty array if you have once opened this field, even if you never add or have deleted the variant..
     const [selectedVariant, setSelectedVariant] = useState(
-        product.variants ? product.variants[0]?.title : ''
+        product.variants?.[0]?.title ?? ''
     )
     const [selectedSize, setSelectedSize] = useState(
-        product.size ? [0]?.title : ''
+        product.size?.[0]?.title ?? ''
     )
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        if (product?.imageUrls) {
-            setBigImage({
-                src: `${product.imageUrls[0]}/${product.originalFilename[0]}/?fm=webp`,
-                alt:
-                    product.images[0].alt ||
-                    `${product.title} - ${product.titleExtended}, bild 1`,
-            })
-        }
-        if (product?.variants && product.variants.length > 0) {
-            //sanity gives you an empty array if you have once opened this field, even if you never add or have deleted the variant..
-            setSelectedVariant(product.variants[0].title)
-        }
-        if (product?.size && product.size.length > 0) {
-            //sanity gives you an empty array if you have once opened this field, even if you never add or have deleted the variant..
-            setSelectedSize(product.size[0].title)
-        }
-    }, [product])
 
     const addProductToCart = (product) => {
         const productInfo = {
@@ -456,4 +449,8 @@ export const getStaticProps = async ({ params }) => {
     }
 }
 
-export default Product
+// next.js keeps the same component when navigating from one product to another,
+// a new key for every product resets the state (big image, variant and size) to the new product
+const ProductPage = (props) => <Product key={props.slug} {...props} />
+
+export default ProductPage
